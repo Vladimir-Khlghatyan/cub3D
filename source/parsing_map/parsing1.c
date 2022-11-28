@@ -12,6 +12,16 @@
 
 #include "cub.h"
 
+void	ft_map_name_check(char *map_path)
+{
+	int	l;
+
+	l = ft_strlen(map_path);
+	if (l < 4 || map_path[l - 4] != '.' || map_path[l - 3] != 'c' \
+		|| map_path[l - 2] != 'u' || map_path[l - 1] != 'b')
+		ft_error("non valid name of map!\n", 1);
+}
+
 int	ft_empty_or_only_spaces_str(char *str)
 {
 	int	i;

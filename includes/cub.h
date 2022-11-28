@@ -50,18 +50,18 @@
 
 # define FOV				1.2
 # define SIZE				1000
-# define STEP				75
-# define WIDTH_WINDOW		1533
-# define HEIGHT_WINDOW		790
+# define STEP				100
+# define WIDTH_WINDOW		2040 //1533
+# define HEIGHT_WINDOW		1000 //790
 # define TURN_AROUND_STEP	60
 # define DIST_FROM_WALL		500
 # define WALL_HEIGHT_RATIO	1
-# define MOUSE_RATIO		2
-# define MOUSE_SIDE_RATIO	2
+# define MOUSE_RATIO		1.5
+# define MOUSE_SIDE_RATIO	1.5
 # define MINIMAP_RATIO		5
 # define MINIMAP_STEP		83
 # define DOOR_OPEN_DIST		1100
-# define WALL_PIC			"./xpm/door2.xpm"
+# define DOOR_PIC			"./xpm/door2.xpm"
 
 typedef struct s_xpm
 {
@@ -246,6 +246,7 @@ void		ft_mouse_move(t_cub *c);
 // parsing
 //===========================================================================
 
+void		ft_map_name_check(char *map_path);
 int			ft_empty_or_only_spaces_str(char *str);
 int			ft_begins_with_valid_xpm_name(char *str);
 int			ft_valid_xpm_names(char	*map_path, char *buff, int cnt, int rt);

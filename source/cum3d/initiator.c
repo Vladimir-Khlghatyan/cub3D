@@ -14,6 +14,7 @@
 
 static void	ft_initiator1(t_cub *c, char **argv)
 {
+	ft_map_name_check(argv[1]);
 	c->mlx = mlx_init();
 	if (!c->mlx)
 		ft_error("MLX was not initialized!\n", 1);
@@ -95,7 +96,7 @@ static void	ft_initiator3(t_cub *c)
 		c->xpm[i].addr = mlx_get_data_addr(c->xpm[i].ptr, &c->xpm[i].bpp, \
 									&c->xpm[i].linelen, &c->xpm[i].endian);
 	}
-	c->xpm[4].ptr = mlx_xpm_file_to_image(c->mlx, WALL_PIC, \
+	c->xpm[4].ptr = mlx_xpm_file_to_image(c->mlx, DOOR_PIC, \
 		&c->xpm[4].width, &c->xpm[4].height);
 	c->xpm[4].addr = mlx_get_data_addr(c->xpm[4].ptr, &c->xpm[4].bpp, \
 									&c->xpm[4].linelen, &c->xpm[4].endian);

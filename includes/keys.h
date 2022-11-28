@@ -31,12 +31,12 @@
 #  define KEY_D 	2
 #  define KEY_W 	13
 #  define RED_CROSS	17
+#  define KEY_SPACE	49
 #  define KEY_ESC 	53
 #  define KEY_LEFT 	123
 #  define KEY_RIGHT 124
 #  define KEY_DOWN 	125
 #  define KEY_UP 	126
-#  define KEY_SPACE	66666666
 # endif
 
 #endif
