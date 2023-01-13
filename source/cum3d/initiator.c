@@ -33,6 +33,7 @@ static void	ft_initiator1(t_cub *c, char **argv)
 	minimap.pl_x = -1;
 	minimap.pl_y = -1;
 	c->door_is_open = 0;
+	g_mouse_enable = 0;
 }
 
 static void	ft_initiator2_util(t_cub *c, int x, int y, int flag)

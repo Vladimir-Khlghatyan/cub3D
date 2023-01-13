@@ -12,10 +12,25 @@
 
 #include "cub.h"
 
+void	ft_win_msg(t_cub *c)
+{
+	if (g_mouse_enable)
+	{
+		mlx_string_put(c->mlx, c->win, 20, 0, 0x00, "Mouse ON  (right \
+			click to turn off)");
+	}
+	else
+	{
+		mlx_string_put(c->mlx, c->win, 20, 0, 0x00, "Mouse OFF (right \
+			click to turn on)");
+	}
+}
+
 int	ft_cub3d(t_cub *c)
 {
 	ft_draw_floor_and_ceilling(c);
 	ft_draw_wall_by_map(c, 2);
+	ft_win_msg(c);
 	ft_set_ways_length(c);
 	ft_mouse_move(c);
 	mlx_do_sync(c->mlx);
@@ -38,6 +53,7 @@ int	main(int ac, char **av)
 	mlx_hook(c->win, 6, 1L << 6, mouse_hook, c);
 	mlx_hook(c->win, RED_CROSS, 0, ft_close, c);
 	mlx_loop_hook(c->mlx, ft_cub3d, c);
+	mlx_mouse_hook(c->win, mouse_click, c);
 	mlx_loop(c->mlx);
 	return (0);
 }

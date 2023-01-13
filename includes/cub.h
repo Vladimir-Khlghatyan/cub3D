@@ -50,13 +50,13 @@
 
 # define FOV				1.2
 # define SIZE				1000
-# define STEP				100
-# define WIDTH_WINDOW		2040 //1533
-# define HEIGHT_WINDOW		1000 //790
+# define STEP				200
+# define WIDTH_WINDOW		2040 // 1533 //2040
+# define HEIGHT_WINDOW		1000 // 790 //1000
 # define TURN_AROUND_STEP	60
 # define DIST_FROM_WALL		500
 # define WALL_HEIGHT_RATIO	1
-# define MOUSE_RATIO		1.5
+# define MOUSE_RATIO		1.0
 # define MOUSE_SIDE_RATIO	1.5
 # define MINIMAP_RATIO		5
 # define MINIMAP_STEP		83
@@ -165,10 +165,13 @@ struct	s_minimap
 	int			pl_delta_y;
 }	minimap;
 
+int	g_mouse_enable;
+
 //===========================================================================
 // cub3D
 //===========================================================================
 
+void		ft_win_msg(t_cub *c);
 int			ft_cub3d(t_cub *c);
 char		*ft_add_char_to_buf(char *buf, char c);
 char		*get_next_line(int fd);
@@ -241,6 +244,7 @@ void		ft_go_left(t_cub *c);
 void		ft_go_right(t_cub *c);
 int			mouse_hook(int x, int y, t_cub *c);
 void		ft_mouse_move(t_cub *c);
+int			mouse_click(int button);
 
 //===========================================================================
 // parsing
