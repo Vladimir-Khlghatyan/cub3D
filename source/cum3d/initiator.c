@@ -111,7 +111,5 @@ void	ft_initiator(t_cub *c, char **argv)
 	ft_initiator3(c);
 	ft_open_sprites(c);
 	c->s_num = 5;
-	if (SPRT_NIKOL)
-		c->s_num = 17;
 	c->s_speed = 0;
 }

@@ -12,6 +12,20 @@
 
 #include "cub.h"
 
+void	ft_win_msg_background(t_cub *c)
+{
+	int	x;
+	int	y;
+
+	y = c->h_win / 2 - 15;
+	while (++y < c->h_win / 2 + 5)
+	{
+		x = c->w_win / 2 - 5;
+		while (++x < c->w_win / 2 + 170)
+			my_mlx_pixel_put(c, x, y, 0x183E0C);
+	}
+}
+
 void	ft_win_msg(t_cub *c)
 {
 	if (mouse.mouse_enable)
@@ -23,6 +37,11 @@ void	ft_win_msg(t_cub *c)
 	{
 		mlx_string_put(c->mlx, c->win, 20, 190, 0xFF0000, \
 			"Mouse OFF (right click to turn on)");
+	}
+	if (way_length.forward <= DOOR_OPEN_MSG)
+	{
+		mlx_string_put(c->mlx, c->win, c->w_win / 2, c->h_win / 2, \
+			0xFFFFFF, "Press <space> to open door!");
 	}
 }
 

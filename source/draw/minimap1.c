@@ -40,8 +40,11 @@ static void	ft_draw_frame(t_cub *c, int x, int y)
 			my_mlx_pixel_put(c, x, y, 0x784315);
 		else if (c->map[minimap.i][minimap.j] == '2')
 			my_mlx_pixel_put(c, x, y, 0xF5892B);
-		else if (c->map[minimap.i][minimap.j] == '3')
+		else if (c->map[minimap.i][minimap.j] == '3' && c->s_num > 8)
 			my_mlx_pixel_put(c, x, y, 0xC2C2C2);
+		else if (c->map[minimap.i][minimap.j] == '4' && ENABLE_MY_PIC && \
+			c->s_num > 8)
+			my_mlx_pixel_put(c, x, y, 0x727272);
 		else if (minimap.i == (int)(c->pl_board_y / SIZE) && \
 					minimap.j == (int)(c->pl_board_x / SIZE))
 		{

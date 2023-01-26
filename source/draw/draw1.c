@@ -28,7 +28,7 @@ int	ft_get_xmp_pixel_color(t_xpm xpm, int x, int y)
 	return (*(unsigned int *)dst);
 }
 
-int	ft_draw_floor_and_ceilling(t_cub *c)
+void	ft_draw_floor_and_ceilling(t_cub *c)
 {
 	int	x;
 	int	y;
@@ -45,10 +45,9 @@ int	ft_draw_floor_and_ceilling(t_cub *c)
 				my_mlx_pixel_put(c, x, y, c->floor_clr);
 		}
 	}
-	return (0);
 }
 
-int	ft_draw_red_arrow(t_cub *c)
+void	ft_draw_red_arrow(t_cub *c)
 {
 	int	x;
 	int	y;
@@ -65,5 +64,4 @@ int	ft_draw_red_arrow(t_cub *c)
 		while (++x >= 0 && x <= end)
 			my_mlx_pixel_put(c, x, y, 0xFF0000);
 	}
-	return (0);
 }

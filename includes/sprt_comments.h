@@ -50,4 +50,5 @@
 // 	double	angl_po_vec; // "PO" vector's angle
 // 	char	po_vec_pos; // "PO" vector position from central radian (left/right)
 // 	double	xpm_x_ratio;
+// char		sprt_char; // char of the sprite on the map
 // }	t_sprt;

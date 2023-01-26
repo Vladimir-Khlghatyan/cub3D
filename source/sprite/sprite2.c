@@ -100,6 +100,7 @@ void	ft_fill_node4(t_cub *c, t_sprt *node)
 		node->xpm_x_ratio = 1 - (node->rds - node->l_so) / (2 * node->rds);
 	else
 		node->xpm_x_ratio = 1 - node->l_se / (2 * node->rds);
+	node->sprt_char = c->map[sprt_tmp.i][sprt_tmp.j];
 }
 
 void	ft_fill_node(t_cub *c, t_sprt *node)

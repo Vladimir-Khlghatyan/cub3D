@@ -34,11 +34,11 @@
 #  endif
 # endif
 
-# define POSIBLE_CHARS	" 0123NSEW"
-# define INSIDE_CHARS	"023NSEW"
+# define POSIBLE_CHARS	" 01234NSEW"
+# define INSIDE_CHARS	"0234NSEW"
 # define DIRECTIONS		"NSEW"
 # define WALL_OR_DOOR	"12"
-# define SPRITES		"3"
+# define SPRITES		"34"
 
 # define RED	"\33[1;31m"
 # define GREEN	"\33[1;32m"
@@ -62,8 +62,9 @@
 # define MINIMAP_RATIO		5
 # define MINIMAP_STEP		83
 # define DOOR_OPEN_DIST		1100
+# define DOOR_OPEN_MSG		500
 # define SPRT_ANIM_SPEED	4
-# define SPRT_NIKOL			0
+# define ENABLE_MY_PIC		1
 # define DOOR_PIC			"./xpm/door2.xpm"
 # define SPRT_PIC1			"./xpm/sprite/s1.xpm"
 # define SPRT_PIC2			"./xpm/sprite/s2.xpm"
@@ -77,7 +78,7 @@
 # define SPRT_PIC10			"./xpm/sprite/s10.xpm"
 # define SPRT_PIC11			"./xpm/sprite/s11.xpm"
 # define SPRT_PIC12			"./xpm/sprite/s12.xpm"
-# define SPRT_PIC_NIKOL		"./xpm/nik.xpm"
+# define SPRT_PIC_ME		"./xpm/me.xpm"
 
 typedef struct s_sprt
 {
@@ -119,6 +120,7 @@ typedef struct s_sprt
 	double			angl_po_vec;
 	char			po_vec_pos;
 	double			xpm_x_ratio;
+	char			sprt_char;
 }	t_sprt;
 
 struct s_sprt_tmp
@@ -243,6 +245,7 @@ struct	s_minimap
 // cub3D
 //===========================================================================
 
+void		ft_win_msg_background(t_cub *c);
 void		ft_win_msg(t_cub *c);
 int			ft_cub3d(t_cub *c);
 char		*ft_add_char_to_buf(char *buf, char c);
@@ -289,8 +292,8 @@ int			ft_iswall_util(t_cub *c, double x, double y, int flag);
 
 void		my_mlx_pixel_put(t_cub *c, int x, int y, int color);
 int			ft_get_xmp_pixel_color(t_xpm xpm, int x, int y);
-int			ft_draw_floor_and_ceilling(t_cub *c);
-int			ft_draw_red_arrow(t_cub *c);
+void		ft_draw_floor_and_ceilling(t_cub *c);
+void		ft_draw_red_arrow(t_cub *c);
 int			ft_line_point(t_cub *c, int line_height, char *place);
 void		ft_draw_wall_by_map(t_cub *c, int map_flag);
 void		ft_set_ways_length(t_cub *c);

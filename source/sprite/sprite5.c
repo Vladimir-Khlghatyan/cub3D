@@ -18,18 +18,22 @@ int	ft_xpm_color_sprt(t_cub *c, int start, int end, int win_y)
 	int		x;
 	int		y;
 	int		color;
+	int		idx;
 
-	d = c->sprt_tmp->xpm_x_ratio * c->xpm[c->s_num].width;
+	idx = c->s_num;
+	if (c->sprt_tmp->sprt_char == '4')
+		idx = 17;
+	d = c->sprt_tmp->xpm_x_ratio * c->xpm[idx].width;
 	x = (int)d;
 	if (end - start <= HEIGHT_WINDOW)
-		y = c->xpm[c->s_num].height * (win_y - start) / (end - start);
+		y = c->xpm[idx].height * (win_y - start) / (end - start);
 	else
 	{
-		y = (c->xpm[c->s_num].height * (end - start) - \
-			c->xpm[c->s_num].height * HEIGHT_WINDOW) / (2 * (end - start));
-		y = y + (win_y * (c->xpm[c->s_num].height - 2 * y)) / HEIGHT_WINDOW;
+		y = (c->xpm[idx].height * (end - start) - \
+			c->xpm[idx].height * HEIGHT_WINDOW) / (2 * (end - start));
+		y = y + (win_y * (c->xpm[idx].height - 2 * y)) / HEIGHT_WINDOW;
 	}
-	color = ft_get_xmp_pixel_color(c->xpm[c->s_num], x, y);
+	color = ft_get_xmp_pixel_color(c->xpm[idx], x, y);
 	return (color);
 }
 
@@ -76,7 +80,8 @@ void	ft_draw_sprites(t_cub *c, int x)
 	while (tmp)
 	{
 		c->sprt_tmp = tmp;
-		ft_draw_sprt_line(c, x);
+		if (tmp->sprt_char == '3' || (tmp->sprt_char == '4' && ENABLE_MY_PIC))
+			ft_draw_sprt_line(c, x);
 		tmp = tmp->prev;
 	}
 }
@@ -87,10 +92,8 @@ void	ft_animation_speed(t_cub *c)
 	if (c->s_speed == SPRT_ANIM_SPEED)
 	{
 		c->s_num++;
-		if (c->s_num == 16)
+		if (c->s_num > 16)
 			c->s_num = 5;
-		if (SPRT_NIKOL)
-			c->s_num = 17;
 		c->s_speed = 0;
 	}
 }

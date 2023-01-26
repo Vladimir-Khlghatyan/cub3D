@@ -70,7 +70,7 @@ static void	ft_open_sprites2(t_cub *c)
 
 static void	ft_open_sprites3(t_cub *c)
 {
-	c->xpm[17].ptr = mlx_xpm_file_to_image(c->mlx, SPRT_PIC_NIKOL, \
+	c->xpm[17].ptr = mlx_xpm_file_to_image(c->mlx, SPRT_PIC_ME, \
 		&c->xpm[17].width, &c->xpm[17].height);
 	c->xpm[17].addr = mlx_get_data_addr(c->xpm[17].ptr, &c->xpm[17].bpp, \
 									&c->xpm[17].linelen, &c->xpm[17].endian);
