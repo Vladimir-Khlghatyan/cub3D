@@ -33,7 +33,8 @@ static void	ft_initiator1(t_cub *c, char **argv)
 	minimap.pl_x = -1;
 	minimap.pl_y = -1;
 	c->door_is_open = 0;
-	g_mouse_enable = 0;
+	mouse.mouse_enable = 0;
+	c->sprt = NULL;
 }
 
 static void	ft_initiator2_util(t_cub *c, int x, int y, int flag)
@@ -82,7 +83,7 @@ static void	ft_initiator3(t_cub *c)
 {
 	int	i;
 
-	c->xpm = (t_xpm *)malloc(sizeof(t_xpm) * 5);
+	c->xpm = (t_xpm *)malloc(sizeof(t_xpm) * 18);
 	if (!c->xpm)
 		ft_error("something went wrong with malloc, try again!\n", 1);
 	c->xpm[0].ptr = c->xpm_no;
@@ -108,4 +109,9 @@ void	ft_initiator(t_cub *c, char **argv)
 	ft_initiator1(c, argv);
 	ft_initiator2(c);
 	ft_initiator3(c);
+	ft_open_sprites(c);
+	c->s_num = 5;
+	if (SPRT_NIKOL)
+		c->s_num = 17;
+	c->s_speed = 0;
 }

@@ -34,10 +34,11 @@
 #  endif
 # endif
 
-# define POSIBLE_CHARS	" 012NSEW"
-# define INSIDE_CHARS	"02NSEW"
+# define POSIBLE_CHARS	" 0123NSEW"
+# define INSIDE_CHARS	"023NSEW"
 # define DIRECTIONS		"NSEW"
-# define WALL_OR_DOOR	"123"
+# define WALL_OR_DOOR	"12"
+# define SPRITES		"3"
 
 # define RED	"\33[1;31m"
 # define GREEN	"\33[1;32m"
@@ -51,8 +52,8 @@
 # define FOV				1.2
 # define SIZE				1000
 # define STEP				200
-# define WIDTH_WINDOW		2040 // 1533 //2040
-# define HEIGHT_WINDOW		1000 // 790 //1000
+# define WIDTH_WINDOW		1533 //2040
+# define HEIGHT_WINDOW		790 //1000
 # define TURN_AROUND_STEP	60
 # define DIST_FROM_WALL		500
 # define WALL_HEIGHT_RATIO	1
@@ -61,7 +62,73 @@
 # define MINIMAP_RATIO		5
 # define MINIMAP_STEP		83
 # define DOOR_OPEN_DIST		1100
+# define SPRT_ANIM_SPEED	4
+# define SPRT_NIKOL			0
 # define DOOR_PIC			"./xpm/door2.xpm"
+# define SPRT_PIC1			"./xpm/sprite/s1.xpm"
+# define SPRT_PIC2			"./xpm/sprite/s2.xpm"
+# define SPRT_PIC3			"./xpm/sprite/s3.xpm"
+# define SPRT_PIC4			"./xpm/sprite/s4.xpm"
+# define SPRT_PIC5			"./xpm/sprite/s5.xpm"
+# define SPRT_PIC6			"./xpm/sprite/s6.xpm"
+# define SPRT_PIC7			"./xpm/sprite/s7.xpm"
+# define SPRT_PIC8			"./xpm/sprite/s8.xpm"
+# define SPRT_PIC9			"./xpm/sprite/s9.xpm"
+# define SPRT_PIC10			"./xpm/sprite/s10.xpm"
+# define SPRT_PIC11			"./xpm/sprite/s11.xpm"
+# define SPRT_PIC12			"./xpm/sprite/s12.xpm"
+# define SPRT_PIC_NIKOL		"./xpm/nik.xpm"
+
+typedef struct s_sprt
+{
+	struct s_sprt	*prev;
+	struct s_sprt	*next;
+	double			rds;
+	double			pbx;
+	double			pby;
+	double			ccx;
+	double			ccy;
+	double			ccx0;
+	double			ccy0;
+	double			cx;
+	double			cy;
+	double			rr;
+	double			cr;
+	double			crt;
+	int				iytr;
+	int				jytr;
+	double			iyt;
+	double			jyt;
+	double			sdp;
+	char			rpfcr;
+	double			pdfc;
+	double			pdfcc;
+	double			ccdfc;
+	double			angl_spo;
+	double			angl_hpo;
+	double			angl_sph;
+	double			l_ho;
+	double			l_hs;
+	double			l_ps;
+	double			l_so;
+	double			area_sph;
+	double			area_oph;
+	double			area_spo;
+	char			s_pos;
+	double			l_se;
+	double			angl_po_vec;
+	char			po_vec_pos;
+	double			xpm_x_ratio;
+}	t_sprt;
+
+struct s_sprt_tmp
+{
+	double	x;
+	double	y;
+	int		i;
+	int		j;
+	double	step;
+}	sprt_tmp;
 
 typedef struct s_xpm
 {
@@ -119,6 +186,10 @@ typedef struct s_cub
 	double		cross_coor_y;
 	double		ray_length;
 	double		ray_projection;
+	t_sprt		*sprt;
+	t_sprt		*sprt_tmp;
+	int			s_num;
+	int			s_speed;
 }			t_cub;
 
 struct	s_vertical
@@ -151,6 +222,7 @@ struct	s_way_length
 struct	s_mouse
 {
 	int			old_x;
+	int			mouse_enable;
 }	mouse;
 
 struct	s_minimap
@@ -165,7 +237,7 @@ struct	s_minimap
 	int			pl_delta_y;
 }	minimap;
 
-int	g_mouse_enable;
+// int	g_mouse_enable;
 
 //===========================================================================
 // cub3D
@@ -219,6 +291,7 @@ void		my_mlx_pixel_put(t_cub *c, int x, int y, int color);
 int			ft_get_xmp_pixel_color(t_xpm xpm, int x, int y);
 int			ft_draw_floor_and_ceilling(t_cub *c);
 int			ft_draw_red_arrow(t_cub *c);
+int			ft_line_point(t_cub *c, int line_height, char *place);
 void		ft_draw_wall_by_map(t_cub *c, int map_flag);
 void		ft_set_ways_length(t_cub *c);
 void		ft_draw_minimap(t_cub *c);
@@ -266,5 +339,32 @@ void		ft_chek_nsew_char_cnt(char **map);
 char		**ft_get_map(char *map_path, t_cub *c);
 void		ft_align_arr(char **arr);
 void		ft_check_inside_chars(char **map);
+
+//===========================================================================
+// sprite
+//===========================================================================
+
+double		ft_distance(double x1, double y1, double x2, double y2);
+double		ft_heron_forumla(double a, double b, double c);
+double		ft_cosine_length(double a, double b, double angle);
+double		ft_cosine_angle(double a, double b, double c);
+t_sprt		*ft_new_sprt_node(int i, int j);
+void		ft_add_sprt_node(t_sprt **head, t_sprt *new);
+void		ft_fill_sprt_tmp(double x, double y);
+void		ft_free_sprt_list(t_cub *c);
+void		ft_fill_node1(t_cub *c, t_sprt *node);
+void		ft_fill_node2(t_cub *c, t_sprt *node);
+void		ft_fill_node3(t_cub *c, t_sprt *node);
+void		ft_fill_node4(t_cub *c, t_sprt *node);
+void		ft_fill_node(t_cub *c, t_sprt *node);
+void		ft_create_sprt_list(t_cub *c, int i, int j);
+double		ft_abgle_of_vector(double x, double y);
+int			ft_is_1st_grater_than_2nd(double angle1, double angle2);
+int			ft_xpm_color_sprt(t_cub *c, int start, int end, int win_y);
+int			ft_sprt_line_height(t_cub *c);
+void		ft_draw_sprt_line(t_cub *c, int x);
+void		ft_draw_sprites(t_cub *c, int x);
+void		ft_animation_speed(t_cub *c);
+void		ft_open_sprites(t_cub *c);
 
 #endif

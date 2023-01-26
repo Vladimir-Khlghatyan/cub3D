@@ -16,7 +16,7 @@ static int	ft_wall_or_door(char **map, int i, int j)
 {
 	if (map[i - 1][j - 1] == '2' || map[i - 1][j - 0] == '2' || \
 		map[i - 0][j - 1] == '2' || map[i - 0][j - 0] == '2')
-		return (22);
+		return (2);
 	if (map[i - 1][j - 1] == '3' || map[i - 1][j - 0] == '3' || \
 		map[i - 0][j - 1] == '3' || map[i - 0][j - 0] == '3')
 		return (3);

@@ -17,9 +17,7 @@ void	ft_ray_projection(t_cub *c, double step, int flag)
 	double	angle;
 
 	angle = ft_correct_radian(c->cntr_rad + c->fov / 2 - step);
-	angle = angle - c->cntr_rad;
-	if (angle < 0)
-		angle = -angle;
+	angle = fabs(angle - c->cntr_rad);
 	ft_ray_length(c, step, flag);
 	c->ray_projection = c->ray_length * cos(angle);
 }

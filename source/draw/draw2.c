@@ -22,7 +22,7 @@ static int	ft_line_height(t_cub *c)
 	return (line_height);
 }
 
-static int	ft_line_point(t_cub *c, int line_height, char *place)
+int	ft_line_point(t_cub *c, int line_height, char *place)
 {
 	if (place[0] == 's')
 		return ((c->h_win - line_height) / 2);
@@ -69,9 +69,13 @@ void	ft_draw_wall_by_map(t_cub *c, int map_flag)
 	i = -1;
 	while (++i < WIDTH_WINDOW)
 	{
+		sprt_tmp.step = step * i;
 		ft_ray_cast(c, step * i, map_flag);
 		ft_draw_wall_line(c, i);
+		ft_draw_sprites(c, i);
+		ft_free_sprt_list(c);
 	}
+	ft_animation_speed(c);
 	ft_draw_red_arrow(c);
 	ft_draw_minimap(c);
 	mlx_put_image_to_window(c->mlx, c->win, c->img, 0, 0);

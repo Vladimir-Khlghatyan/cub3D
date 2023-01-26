@@ -75,6 +75,7 @@ int	ft_iswall(t_cub *c, double x, double y, int flag)
 	char	**map;
 
 	map = ft_select_map(c, flag);
+	ft_fill_sprt_tmp(x, y);
 	if (ft_iswall_util(c, x, y, flag))
 		return (1);
 	if (c->compass_x == 'E' && c->compass_y == 'N')
@@ -89,10 +90,8 @@ int	ft_iswall(t_cub *c, double x, double y, int flag)
 	j = (int)x;
 	if (i < 0 || j < 0)
 		return (0);
+	ft_create_sprt_list(c, i, j);
 	if (ft_strchr(WALL_OR_DOOR, map[i][j]))
-	{
-		ft_wall_or_door_set(c, map[i][j]);
-		return (1);
-	}
+		return (ft_wall_or_door_set(c, map[i][j]));
 	return (0);
 }

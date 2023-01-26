@@ -59,17 +59,9 @@ int	ft_draw_red_arrow(t_cub *c)
 	y = c->h_win;
 	while (--y >= 0 && line > 0)
 	{
-		if (y > c->h_win - 10)
-		{
-			x = (c->w_win - (line - 10)) / 2 - 1;
-			end = x + line - 10;
-		}
-		else
-		{
-			x = (c->w_win - line) / 2 - 1;
-			end = x + line;
-			line -= 2;
-		}
+		x = (c->w_win - line) / 2 - 1;
+		end = x + line;
+		line -= 2;
 		while (++x >= 0 && x <= end)
 			my_mlx_pixel_put(c, x, y, 0xFF0000);
 	}

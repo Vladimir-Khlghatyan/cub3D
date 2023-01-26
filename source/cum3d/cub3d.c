@@ -14,15 +14,15 @@
 
 void	ft_win_msg(t_cub *c)
 {
-	if (g_mouse_enable)
+	if (mouse.mouse_enable)
 	{
-		mlx_string_put(c->mlx, c->win, 20, 0, 0x00, "Mouse ON  (right \
-			click to turn off)");
+		mlx_string_put(c->mlx, c->win, 20, 190, 0x00FF00, \
+			"Mouse ON (right click to turn off)");
 	}
 	else
 	{
-		mlx_string_put(c->mlx, c->win, 20, 0, 0x00, "Mouse OFF (right \
-			click to turn on)");
+		mlx_string_put(c->mlx, c->win, 20, 190, 0xFF0000, \
+			"Mouse OFF (right click to turn on)");
 	}
 }
 

@@ -26,7 +26,7 @@ static void	ft_draw_minimap_background(t_cub *c, int start, int end)
 			if (y == start + 1 || x == start + 1 || y == end || x == end)
 				my_mlx_pixel_put(c, x, y, 0x0);
 			else
-				my_mlx_pixel_put(c, x, y, 0xBFBFBF);
+				my_mlx_pixel_put(c, x, y, 0xD0FFB9);
 		}
 	}
 }
@@ -37,11 +37,11 @@ static void	ft_draw_frame(t_cub *c, int x, int y)
 		minimap.i < c->h_map && minimap.j < c->w_map)
 	{
 		if (c->map[minimap.i][minimap.j] == '1')
-			my_mlx_pixel_put(c, x, y, 0x0);
-		else if (c->map[minimap.i][minimap.j] == '2' || \
-			c->map[minimap.i][minimap.j] == '3' || \
-			c->map[minimap.i][minimap.j] == '4')
-			my_mlx_pixel_put(c, x, y, 0x757171);
+			my_mlx_pixel_put(c, x, y, 0x784315);
+		else if (c->map[minimap.i][minimap.j] == '2')
+			my_mlx_pixel_put(c, x, y, 0xF5892B);
+		else if (c->map[minimap.i][minimap.j] == '3')
+			my_mlx_pixel_put(c, x, y, 0xC2C2C2);
 		else if (minimap.i == (int)(c->pl_board_y / SIZE) && \
 					minimap.j == (int)(c->pl_board_x / SIZE))
 		{
@@ -66,7 +66,7 @@ static void	ft_draw_minimap_walls(t_cub *c, int start, int end)
 		minimap.i = (int)((minimap.start_y + \
 					(y - start - 2) * MINIMAP_STEP) / SIZE);
 		x = start + 1;
-		while (++x <= end)
+		while (++x < end)
 		{
 			minimap.j = (int)((minimap.start_x + \
 					(x - start - 2) * MINIMAP_STEP) / SIZE);

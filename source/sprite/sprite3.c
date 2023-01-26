@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   sprite3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vkhlghat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/25 14:43:41 by vkhlghat          #+#    #+#             */
-/*   Updated: 2022/09/25 14:43:42 by vkhlghat         ###   ########.fr       */
+/*   Created: 2022/06/14 16:07:37 by vkhlghat          #+#    #+#             */
+/*   Updated: 2022/06/18 01:27:01 by vkhlghat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int	ft_strcmp(char *s1, char *s2)
+void	ft_create_sprt_list(t_cub *c, int i, int j)
 {
-	size_t	i;
+	t_sprt	*node;
 
-	i = 0;
-	while (s1[i] || s2[i])
+	if (!ft_strchr(SPRITES, c->map[i][j]))
+		return ;
+	node = ft_new_sprt_node(i, j);
+	ft_fill_node(c, node);
+	if (node->xpm_x_ratio < 0 || node->xpm_x_ratio > 1)
 	{
-		if ((unsigned char)s1[i] < (unsigned char)s2[i])
-			return (-1);
-		else if ((unsigned char)s1[i] > (unsigned char)s2[i])
-			return (1);
-		++i;
+		free(node);
+		node = NULL;
+		return ;
 	}
-	return (0);
+	ft_add_sprt_node(&(c->sprt), node);
 }
