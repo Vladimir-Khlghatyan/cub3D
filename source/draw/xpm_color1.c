@@ -12,90 +12,36 @@
 
 #include "cub.h"
 
-int	ft_xpm_color_no(t_cub *c, int start, int end, int win_y)
+static void	ft_set_n_and_x(t_cub *c, int *n, int *x)
 {
-	int	x;
-	int	y;
-	int	color;
-	int	n;
-
-	n = 0;
-	if (c->w_or_d == 2)
-		n = 4;
-	x = (int)c->cross_coor_x % SIZE;
-	x = (x * c->xpm[n].width) / SIZE;
-	if (end - start <= HEIGHT_WINDOW)
-		y = c->xpm[n].height * (win_y - start) / (end - start);
+	if (c->pic == 'N')
+		(*n) = 0;
+	else if (c->pic == 'S')
+		(*n) = 1;
+	else if (c->pic == 'W')
+		(*n) = 2;
 	else
-	{
-		y = (c->xpm[n].height * (end - start) - \
-			c->xpm[n].height * HEIGHT_WINDOW) / (2 * (end - start));
-		y = y + (win_y * (c->xpm[n].height - 2 * y)) / HEIGHT_WINDOW;
-	}
-	color = ft_get_xmp_pixel_color(c->xpm[n], x, y);
-	return (color);
+		(*n) = 3;
+	if (c->w_or_d == 2)
+		(*n) += 17;
+	if (c->pic == 'N')
+		(*x) = ((int)c->cross_coor_x % SIZE * c->xpm[*n].width) / SIZE;
+	else if (c->pic == 'S')
+		(*x) = ((SIZE - (int)c->cross_coor_x % SIZE) * c->xpm[*n].width) / SIZE;
+	else if (c->pic == 'W')
+		(*x) = ((SIZE - (int)c->cross_coor_y % SIZE) * c->xpm[*n].width) / SIZE;
+	else
+		(*x) = ((int)c->cross_coor_y % SIZE * c->xpm[*n].width) / SIZE;
 }
 
-int	ft_xpm_color_so(t_cub *c, int start, int end, int win_y)
+int	ft_xpm_color_wall(t_cub *c, int start, int end, int win_y)
 {
 	int	x;
 	int	y;
 	int	color;
 	int	n;
 
-	n = 1;
-	if (c->w_or_d == 2)
-		n = 4;
-	x = SIZE - (int)c->cross_coor_x % SIZE;
-	x = (x * c->xpm[n].width) / SIZE;
-	if (end - start <= HEIGHT_WINDOW)
-		y = c->xpm[n].height * (win_y - start) / (end - start);
-	else
-	{
-		y = (c->xpm[n].height * (end - start) - \
-			c->xpm[n].height * HEIGHT_WINDOW) / (2 * (end - start));
-		y = y + (win_y * (c->xpm[n].height - 2 * y)) / HEIGHT_WINDOW;
-	}
-	color = ft_get_xmp_pixel_color(c->xpm[n], x, y);
-	return (color);
-}
-
-int	ft_xpm_color_we(t_cub *c, int start, int end, int win_y)
-{
-	int	x;
-	int	y;
-	int	color;
-	int	n;
-
-	n = 2;
-	if (c->w_or_d == 2)
-		n = 4;
-	x = SIZE - (int)c->cross_coor_y % SIZE;
-	x = (x * c->xpm[n].width) / SIZE;
-	if (end - start <= HEIGHT_WINDOW)
-		y = c->xpm[n].height * (win_y - start) / (end - start);
-	else
-	{
-		y = (c->xpm[n].height * (end - start) - \
-			c->xpm[n].height * HEIGHT_WINDOW) / (2 * (end - start));
-		y = y + (win_y * (c->xpm[n].height - 2 * y)) / HEIGHT_WINDOW;
-	}
-	color = ft_get_xmp_pixel_color(c->xpm[n], x, y);
-	return (color);
-}
-
-int	ft_xpm_color_ea(t_cub *c, int start, int end, int win_y)
-{
-	int	x;
-	int	y;
-	int	color;
-	int	n;
-
-	n = 3;
-	if (c->w_or_d == 2)
-		n = 4;
-	x = (int)c->cross_coor_y % SIZE;
-	x = (x * c->xpm[n].width) / SIZE;
+	ft_set_n_and_x(c, &n, &x);
 	if (end - start <= HEIGHT_WINDOW)
 		y = c->xpm[n].height * (win_y - start) / (end - start);
 	else

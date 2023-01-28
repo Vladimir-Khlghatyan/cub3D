@@ -22,7 +22,7 @@ int	ft_xpm_color_sprt(t_cub *c, int start, int end, int win_y)
 
 	idx = c->s_num;
 	if (c->sprt_tmp->sprt_char == '4')
-		idx = 17;
+		idx = 16;
 	d = c->sprt_tmp->xpm_x_ratio * c->xpm[idx].width;
 	x = (int)d;
 	if (end - start <= HEIGHT_WINDOW)
@@ -92,8 +92,8 @@ void	ft_animation_speed(t_cub *c)
 	if (c->s_speed == SPRT_ANIM_SPEED)
 	{
 		c->s_num++;
-		if (c->s_num > 16)
-			c->s_num = 5;
+		if (c->s_num > 15)
+			c->s_num = 4;
 		c->s_speed = 0;
 	}
 }

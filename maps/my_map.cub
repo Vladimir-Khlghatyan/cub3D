@@ -1,11 +1,11 @@
-NO              ./xpm/no42.xpm
+NO              ./xpm/wall1.xpm
 
-    WE     ./xpm/we42.xpm
+    WE     ./xpm/wall2.xpm
 
- SO ./xpm/so42.xpm
+ SO ./xpm/wall3.xpm
 
 
-EA ./xpm/ea42.xpm
+EA ./xpm/wall4.xpm
 
 F     108, 172   ,      1
 

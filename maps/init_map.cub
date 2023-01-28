@@ -1,11 +1,11 @@
-NO              ./xpm/no.xpm
+NO              ./xpm/wall1.xpm
 
-    WE     ./xpm/we.xpm
+    WE     ./xpm/wall2.xpm
 
- SO ./xpm/so.xpm
+ SO ./xpm/wall3.xpm
 
 
-EA ./xpm/ea.xpm
+EA ./xpm/wall4.xpm
 
 F     134, 81   ,      0
 

@@ -31,14 +31,8 @@ static int	ft_wall_or_door(char **map, int i, int j)
 
 int	ft_wall_or_door_set(t_cub *c, char chr)
 {
-	if (chr == '2')
-		c->w_or_d = 2;
-	else if (chr == '3')
-		c->w_or_d = 3;
-	else if (chr == '4')
-		c->w_or_d = 4;
-	else if (chr == '1')
-		c->w_or_d = 1;
+	if (chr == '1' || chr == '2' || chr == '3' || chr == '4')
+		c->w_or_d = (int)chr - 48;
 	return (1);
 }
 

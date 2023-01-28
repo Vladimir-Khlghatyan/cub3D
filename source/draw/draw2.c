@@ -45,15 +45,7 @@ static void	ft_draw_wall_line(t_cub *c, int x)
 	end = ft_line_point(c, line_height, "end");
 	while (++y < end && y < c->h_win)
 	{
-		color = 0x0;
-		if (c->pic == 'N')
-			color = ft_xpm_color_no(c, start, end, y);
-		else if (c->pic == 'S')
-			color = ft_xpm_color_so(c, start, end, y);
-		else if (c->pic == 'W')
-			color = ft_xpm_color_we(c, start, end, y);
-		else if (c->pic == 'E')
-			color = ft_xpm_color_ea(c, start, end, y);
+		color = ft_xpm_color_wall(c, start, end, y);
 		if (color < 0)
 			continue ;
 		my_mlx_pixel_put(c, x, y, color);

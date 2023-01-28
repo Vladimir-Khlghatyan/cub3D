@@ -20,7 +20,7 @@ int	ft_close(t_cub *c)
 	free(c->xpm);
 	free(c);
 	printf("%sGAME OVER.\n Hope you enjoyed it :)\n%s", GREEN, RESET);
-	exit(1);
+	exit(0);
 }
 
 void	ft_go_forward(t_cub *c)

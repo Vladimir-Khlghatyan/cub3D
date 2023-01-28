@@ -83,7 +83,7 @@ static void	ft_initiator3(t_cub *c)
 {
 	int	i;
 
-	c->xpm = (t_xpm *)malloc(sizeof(t_xpm) * 18);
+	c->xpm = (t_xpm *)malloc(sizeof(t_xpm) * 21);
 	if (!c->xpm)
 		ft_error("something went wrong with malloc, try again!\n", 1);
 	c->xpm[0].ptr = c->xpm_no;
@@ -98,10 +98,6 @@ static void	ft_initiator3(t_cub *c)
 		c->xpm[i].addr = mlx_get_data_addr(c->xpm[i].ptr, &c->xpm[i].bpp, \
 									&c->xpm[i].linelen, &c->xpm[i].endian);
 	}
-	c->xpm[4].ptr = mlx_xpm_file_to_image(c->mlx, DOOR_PIC, \
-		&c->xpm[4].width, &c->xpm[4].height);
-	c->xpm[4].addr = mlx_get_data_addr(c->xpm[4].ptr, &c->xpm[4].bpp, \
-									&c->xpm[4].linelen, &c->xpm[4].endian);
 }
 
 void	ft_initiator(t_cub *c, char **argv)
@@ -110,6 +106,6 @@ void	ft_initiator(t_cub *c, char **argv)
 	ft_initiator2(c);
 	ft_initiator3(c);
 	ft_open_sprites(c);
-	c->s_num = 5;
+	c->s_num = 4;
 	c->s_speed = 0;
 }

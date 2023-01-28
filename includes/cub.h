@@ -61,11 +61,10 @@
 # define MOUSE_SIDE_RATIO	1.5
 # define MINIMAP_RATIO		5
 # define MINIMAP_STEP		83
-# define DOOR_OPEN_DIST		1100
+# define DOOR_OPEN_DIST		700
 # define DOOR_OPEN_MSG		500
-# define SPRT_ANIM_SPEED	4
+# define SPRT_ANIM_SPEED	3
 # define ENABLE_MY_PIC		1
-# define DOOR_PIC			"./xpm/door2.xpm"
 # define SPRT_PIC1			"./xpm/sprite/s1.xpm"
 # define SPRT_PIC2			"./xpm/sprite/s2.xpm"
 # define SPRT_PIC3			"./xpm/sprite/s3.xpm"
@@ -79,6 +78,10 @@
 # define SPRT_PIC11			"./xpm/sprite/s11.xpm"
 # define SPRT_PIC12			"./xpm/sprite/s12.xpm"
 # define SPRT_PIC_ME		"./xpm/me.xpm"
+# define DOOR_PIC1			"./xpm/door_a1.xpm"
+# define DOOR_PIC2			"./xpm/door_a3.xpm"
+# define DOOR_PIC3			"./xpm/door_a2.xpm"
+# define DOOR_PIC4			"./xpm/door_a4.xpm"
 
 typedef struct s_sprt
 {
@@ -299,10 +302,7 @@ void		ft_draw_wall_by_map(t_cub *c, int map_flag);
 void		ft_set_ways_length(t_cub *c);
 void		ft_draw_minimap(t_cub *c);
 void		ft_draw_player(t_cub *c);
-int			ft_xpm_color_no(t_cub *c, int start, int end, int win_y);
-int			ft_xpm_color_so(t_cub *c, int start, int end, int win_y);
-int			ft_xpm_color_we(t_cub *c, int start, int end, int win_y);
-int			ft_xpm_color_ea(t_cub *c, int start, int end, int win_y);
+int			ft_xpm_color_wall(t_cub *c, int start, int end, int win_y);
 
 //===========================================================================
 // hooks

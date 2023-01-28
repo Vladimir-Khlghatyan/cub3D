@@ -21,7 +21,7 @@ void	ft_win_msg_background(t_cub *c)
 	while (++y < c->h_win / 2 + 5)
 	{
 		x = c->w_win / 2 - 5;
-		while (++x < c->w_win / 2 + 170)
+		while (++x < c->w_win / 2 + 270)
 			my_mlx_pixel_put(c, x, y, 0x183E0C);
 	}
 }
@@ -41,7 +41,7 @@ void	ft_win_msg(t_cub *c)
 	if (way_length.forward <= DOOR_OPEN_MSG)
 	{
 		mlx_string_put(c->mlx, c->win, c->w_win / 2, c->h_win / 2, \
-			0xFFFFFF, "Press <space> to open door!");
+			0xFFFFFF, "Go to the door and press <space> to open it!");
 	}
 }
 
