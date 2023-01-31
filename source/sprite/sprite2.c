@@ -12,103 +12,73 @@
 
 #include "cub.h"
 
-void	ft_fill_node1(t_cub *c, t_sprt *node)
+int	ft_is_1st_grater_than_2nd(double angle1, double angle2)
 {
-	node->rds = SIZE / 2;
-	node->pbx = c->pl_board_x;
-	node->pby = c->pl_board_y;
-	node->ccx = sprt_tmp.j * SIZE + SIZE / 2;
-	node->ccy = sprt_tmp.i * SIZE + SIZE / 2;
-	node->ccx0 = node->ccx - node->pbx;
-	node->ccy0 = node->ccy - node->pby;
-	node->cx = sprt_tmp.x;
-	node->cy = sprt_tmp.y;
-	node->rr = ft_correct_radian(c->cntr_rad + c->fov / 2 - sprt_tmp.step);
-	node->cr = ft_correct_radian(c->cntr_rad);
-	node->crt = 2 * M_PI - node->cr;
-	if (node->cr <= M_PI_2)
-		node->crt = M_PI_2 - node->cr;
-	else if (node->cr > M_PI_2 && node->cr <= M_PI)
-		node->crt = node->cr - M_PI_2;
-	else if (node->cr > M_PI && node->cr <= M_PI + M_PI_2)
-		node->crt = node->cr - M_PI;
+	if (angle1 == 0 && angle2 < M_PI_2)
+		return (0);
+	if (angle1 == 0 && angle2 > M_PI + M_PI_2)
+		return (1);
+	if (angle2 == 0 && angle1 < M_PI_2)
+		return (1);
+	if (angle2 == 0 && angle1 > M_PI + M_PI_2)
+		return (0);
+	if (angle2 > M_PI + M_PI_2 && angle1 < M_PI_2)
+		return (1);
+	if (angle2 < M_PI_2 && angle1 > M_PI + M_PI_2)
+		return (0);
+	if (angle1 > angle2)
+		return (1);
+	return (0);
 }
 
-void	ft_fill_node2(t_cub *c, t_sprt *node)
+double	ft_i_vec_x(double radian)
 {
-	(void)*c;
-	node->iytr = 1;
-	if ((node->cr <= M_PI_2) || (node->cr > M_PI + M_PI_2))
-		node->iytr = -1;
-	node->jytr = 1;
-	if (node->cr > M_PI)
-		node->jytr = -1;
-	node->iyt = node->iytr * cos(node->crt);
-	if (node->cr <= M_PI)
-		node->iyt = node->iytr * sin(node->crt);
-	node->jyt = node->jytr * sin(node->crt);
-	if (node->cr <= M_PI)
-		node->jyt = node->jytr * cos(node->crt);
-	node->sdp = fabs(node->ccx0 * node->iyt + node->ccy0 * node->jyt);
-	if (ft_is_1st_grater_than_2nd(node->rr, node->cr))
-		node->rpfcr = 'l';
-	else
-		node->rpfcr = 'r';
-	node->pdfc = ft_distance(node->pbx, node->pby, node->cx, node->cy);
-	node->pdfcc = ft_distance(node->pbx, node->pby, node->ccx, node->ccy);
-	node->ccdfc = ft_distance(node->ccx, node->ccy, node->cx, node->cy);
-	node->angl_spo = ft_cosine_angle(node->pdfc, node->pdfcc, node->ccdfc);
-	node->angl_hpo = acos(node->sdp / node->pdfcc);
+	while (radian > 2 * M_PI)
+		radian -= 2 * M_PI;
+	if (radian <= M_PI_2)
+		return (cos(M_PI_2 - radian));
+	else if (radian <= M_PI)
+		return (cos(radian - M_PI_2));
+	else if (radian <= M_PI + M_PI_2)
+		return (-sin(radian - M_PI));
+	return (-cos(radian - M_PI - M_PI_2));
 }
 
-void	ft_fill_node3(t_cub *c, t_sprt *node)
+double	ft_i_vec_y(double radian)
 {
-	(void)*c;
-	node->angl_sph = fabs(node->rr - node->cr);
-	if (node->cr < M_PI_2 && node->rr > M_PI + M_PI_2)
-		node->angl_sph = 2 * M_PI + node->cr - node->rr;
-	else if (node->rr < M_PI_2 && node->cr > M_PI + M_PI_2)
-		node->angl_sph = 2 * M_PI - node->cr + node->rr;
-	node->l_ho = node->sdp * tan(node->angl_hpo);
-	node->l_hs = node->sdp * tan(node->angl_sph);
-	node->l_ps = node->sdp / cos(node->angl_sph);
-	node->l_so = ft_cosine_length(node->l_ps, node->pdfcc, node->angl_spo);
-	node->area_sph = (node->sdp * node->l_hs) / 2;
-	node->area_oph = (node->sdp * node->l_ho) / 2;
-	node->area_spo = ft_heron_forumla(node->pdfcc, node->l_ps, node->l_so);
-	node->s_pos = 'o';
-	if (fabs(node->area_oph - node->area_sph - node->area_spo) < 0.000001 && \
-		node->area_sph != 0)
-		node->s_pos = 'i';
-	node->l_se = node->rds + node->l_so;
-	if ((node->rpfcr == 'l' && node->s_pos == 'i') || \
-		(node->rpfcr == 'r' && node->s_pos == 'o'))
-		node->l_se = node->rds - node->l_so;
+	while (radian > 2 * M_PI)
+		radian -= 2 * M_PI;
+	if (radian <= M_PI_2)
+		return (-sin(M_PI_2 - radian));
+	else if (radian <= M_PI)
+		return (sin(radian - M_PI_2));
+	else if (radian <= M_PI + M_PI_2)
+		return (cos(radian - M_PI));
+	return (-sin(radian - M_PI - M_PI_2));
 }
 
-void	ft_fill_node4(t_cub *c, t_sprt *node)
+double	ft_j_vec_x(double radian)
 {
-	(void)*c;
-	node->angl_po_vec = ft_abgle_of_vector(node->ccx0, node->ccy0);
-	if (ft_is_1st_grater_than_2nd(node->angl_po_vec, node->cr))
-		node->po_vec_pos = 'l';
-	else
-		node->po_vec_pos = 'r';
-	if (node->area_sph < 0.0001 && node->po_vec_pos == 'r')
-		node->xpm_x_ratio = 1 - (node->rds + node->l_so) / (2 * node->rds);
-	else if (node->area_sph < 0.0001 && node->po_vec_pos == 'l')
-		node->xpm_x_ratio = 1 - (node->rds - node->l_so) / (2 * node->rds);
-	else
-		node->xpm_x_ratio = 1 - node->l_se / (2 * node->rds);
-	node->sprt_char = c->map[sprt_tmp.i][sprt_tmp.j];
+	while (radian > 2 * M_PI)
+		radian -= 2 * M_PI;
+	if (radian <= M_PI_2)
+		return (cos(radian));
+	else if (radian <= M_PI)
+		return (-sin(radian - M_PI_2));
+	else if (radian <= M_PI + M_PI_2)
+		return (-cos(radian - M_PI));
+	return (sin(radian - M_PI - M_PI_2));
 }
 
-void	ft_fill_node(t_cub *c, t_sprt *node)
+double	ft_j_vec_y(double radian)
 {
-	if (node == NULL)
-		return ;
-	ft_fill_node1(c, node);
-	ft_fill_node2(c, node);
-	ft_fill_node3(c, node);
-	ft_fill_node4(c, node);
+	while (radian > 2 * M_PI)
+		radian -= 2 * M_PI;
+	if (radian <= M_PI_2)
+		return (sin(radian));
+	else if (radian <= M_PI)
+		return (cos(radian - M_PI_2));
+	else if (radian <= M_PI + M_PI_2)
+		return (-sin(radian - M_PI));
+	return (-cos(radian - M_PI - M_PI_2));
 }

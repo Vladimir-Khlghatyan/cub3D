@@ -87,51 +87,27 @@ typedef struct s_sprt
 {
 	struct s_sprt	*prev;
 	struct s_sprt	*next;
+	int				map_i;
+	int				map_j;
 	double			rds;
-	double			pbx;
-	double			pby;
-	double			ccx;
-	double			ccy;
 	double			ccx0;
 	double			ccy0;
-	double			cx;
-	double			cy;
 	double			rr;
 	double			cr;
-	double			crt;
-	int				iytr;
-	int				jytr;
-	double			iyt;
-	double			jyt;
+	double			ix;
+	double			iy;
+	double			jx;
+	double			jy;
+	double			ccx0_tr;
+	double			ccy0_tr;
 	double			sdp;
-	char			rpfcr;
-	double			pdfc;
-	double			pdfcc;
-	double			ccdfc;
-	double			angl_spo;
-	double			angl_hpo;
-	double			angl_sph;
-	double			l_ho;
-	double			l_hs;
-	double			l_ps;
-	double			l_so;
-	double			area_sph;
-	double			area_oph;
-	double			area_spo;
-	char			s_pos;
-	double			l_se;
-	double			angl_po_vec;
-	char			po_vec_pos;
+	double			s_x0_tr;
 	double			xpm_x_ratio;
 	char			sprt_char;
 }	t_sprt;
 
 struct s_sprt_tmp
 {
-	double	x;
-	double	y;
-	int		i;
-	int		j;
 	double	step;
 }	sprt_tmp;
 
@@ -242,8 +218,6 @@ struct	s_minimap
 	int			pl_delta_y;
 }	minimap;
 
-// int	g_mouse_enable;
-
 //===========================================================================
 // cub3D
 //===========================================================================
@@ -347,27 +321,15 @@ void		ft_check_inside_chars(char **map);
 // sprite
 //===========================================================================
 
-double		ft_distance(double x1, double y1, double x2, double y2);
-double		ft_heron_forumla(double a, double b, double c);
-double		ft_cosine_length(double a, double b, double angle);
-double		ft_cosine_angle(double a, double b, double c);
-t_sprt		*ft_new_sprt_node(int i, int j);
-void		ft_add_sprt_node(t_sprt **head, t_sprt *new);
-void		ft_fill_sprt_tmp(double x, double y);
-void		ft_free_sprt_list(t_cub *c);
-void		ft_fill_node1(t_cub *c, t_sprt *node);
-void		ft_fill_node2(t_cub *c, t_sprt *node);
-void		ft_fill_node3(t_cub *c, t_sprt *node);
-void		ft_fill_node4(t_cub *c, t_sprt *node);
-void		ft_fill_node(t_cub *c, t_sprt *node);
+void		ft_open_sprites(t_cub *c);
 void		ft_create_sprt_list(t_cub *c, int i, int j);
-double		ft_abgle_of_vector(double x, double y);
+void		ft_free_sprt_list(t_cub *c);
 int			ft_is_1st_grater_than_2nd(double angle1, double angle2);
-int			ft_xpm_color_sprt(t_cub *c, int start, int end, int win_y);
-int			ft_sprt_line_height(t_cub *c);
-void		ft_draw_sprt_line(t_cub *c, int x);
+double		ft_i_vec_x(double radian);
+double		ft_i_vec_y(double radian);
+double		ft_j_vec_x(double radian);
+double		ft_j_vec_y(double radian);
 void		ft_draw_sprites(t_cub *c, int x);
 void		ft_animation_speed(t_cub *c);
-void		ft_open_sprites(t_cub *c);
 
 #endif

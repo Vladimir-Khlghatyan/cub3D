@@ -75,7 +75,6 @@ int	ft_iswall(t_cub *c, double x, double y, int flag)
 	char	**map;
 
 	map = ft_select_map(c, flag);
-	ft_fill_sprt_tmp(x, y);
 	if (ft_iswall_util(c, x, y, flag))
 		return (1);
 	if (c->compass_x == 'E' && c->compass_y == 'N')

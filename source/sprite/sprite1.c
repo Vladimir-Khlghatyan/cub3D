@@ -12,7 +12,7 @@
 
 #include "cub.h"
 
-t_sprt	*ft_new_sprt_node(int i, int j)
+static t_sprt	*ft_new_sprt_node(int i, int j)
 {
 	t_sprt	*node;
 
@@ -22,14 +22,38 @@ t_sprt	*ft_new_sprt_node(int i, int j)
 		printf("Can't create sprite list (malloc error)!");
 		exit(1);
 	}
-	sprt_tmp.i = i;
-	sprt_tmp.j = j;
+	node->map_i = i;
+	node->map_j = j;
 	node->prev = NULL;
 	node->next = NULL;
 	return (node);
 }
 
-void	ft_add_sprt_node(t_sprt **head, t_sprt *new)
+static void	ft_fill_node(t_cub *c, t_sprt *node)
+{
+	if (node == NULL)
+		return ;
+	node->rds = SIZE / 2;
+	node->ccx0 = node->map_j * SIZE + SIZE / 2 - c->pl_board_x;
+	node->ccy0 = node->map_i * SIZE + SIZE / 2 - c->pl_board_y;
+	node->rr = ft_correct_radian(c->cntr_rad + c->fov / 2 - sprt_tmp.step);
+	node->cr = ft_correct_radian(c->cntr_rad);
+	node->ix = ft_i_vec_x(node->cr);
+	node->iy = ft_i_vec_y(node->cr);
+	node->jx = ft_j_vec_x(node->cr);
+	node->jy = ft_j_vec_y(node->cr);
+	node->ccx0_tr = node->ccx0 * node->ix + node->ccy0 * node->jx;
+	node->ccy0_tr = node->ccx0 * node->iy + node->ccy0 * node->jy;
+	node->sdp = fabs(node->ccy0_tr);
+	node->s_x0_tr = node->sdp * tan(fabs(c->fov / 2 - sprt_tmp.step));
+	if (ft_is_1st_grater_than_2nd(node->rr, node->cr))
+		node->s_x0_tr *= -1;
+	node->xpm_x_ratio = 1 - (node->rds + node->ccx0_tr - node->s_x0_tr) / \
+						(2 * node->rds);
+	node->sprt_char = c->map[node->map_i][node->map_j];
+}
+
+static void	ft_add_sprt_node(t_sprt **head, t_sprt *new)
 {
 	t_sprt	*last_node;
 
@@ -47,10 +71,21 @@ void	ft_add_sprt_node(t_sprt **head, t_sprt *new)
 	}
 }
 
-void	ft_fill_sprt_tmp(double x, double y)
+void	ft_create_sprt_list(t_cub *c, int i, int j)
 {
-	sprt_tmp.x = x;
-	sprt_tmp.y = y;
+	t_sprt	*node;
+
+	if (!ft_strchr(SPRITES, c->map[i][j]))
+		return ;
+	node = ft_new_sprt_node(i, j);
+	ft_fill_node(c, node);
+	if (node->xpm_x_ratio < 0 || node->xpm_x_ratio > 1)
+	{
+		free(node);
+		node = NULL;
+		return ;
+	}
+	ft_add_sprt_node(&(c->sprt), node);
 }
 
 void	ft_free_sprt_list(t_cub *c)
