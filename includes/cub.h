@@ -217,7 +217,6 @@ struct	s_minimap
 // cub3D
 //===========================================================================
 
-void		ft_win_msg_background(t_cub *c);
 void		ft_win_msg(t_cub *c);
 int			ft_cub3d(t_cub *c);
 char		*ft_add_char_to_buf(char *buf, char c);

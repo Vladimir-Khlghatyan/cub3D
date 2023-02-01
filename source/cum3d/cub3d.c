@@ -12,30 +12,21 @@
 
 #include "cub.h"
 
-void	ft_win_msg_background(t_cub *c)
-{
-	int	x;
-	int	y;
-
-	y = c->h_win / 2 - 15;
-	while (++y < c->h_win / 2 + 5)
-	{
-		x = c->w_win / 2 - 5;
-		while (++x < c->w_win / 2 + 270)
-			my_mlx_pixel_put(c, x, y, 0x183E0C);
-	}
-}
-
 void	ft_win_msg(t_cub *c)
 {
+	int	pos_x;
+	int	pos_y;
+
+	pos_x = c->h_win / (MINIMAP_RATIO * 10);
+	pos_y = c->h_win / (MINIMAP_RATIO * 10) + c->h_win / MINIMAP_RATIO + 10;
 	if (mouse.mouse_enable)
 	{
-		mlx_string_put(c->mlx, c->win, 20, 190, 0x00FF00, \
+		mlx_string_put(c->mlx, c->win, pos_x, pos_y, 0x00FF00, \
 			"Mouse ON (right click to turn off)");
 	}
 	else
 	{
-		mlx_string_put(c->mlx, c->win, 20, 190, 0xFF0000, \
+		mlx_string_put(c->mlx, c->win, pos_x, pos_y, 0xFF0000, \
 			"Mouse OFF (right click to turn on)");
 	}
 	if (way_length.forward <= DOOR_OPEN_MSG)

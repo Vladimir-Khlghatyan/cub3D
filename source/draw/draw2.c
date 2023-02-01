@@ -70,7 +70,5 @@ void	ft_draw_wall_by_map(t_cub *c, int map_flag)
 	ft_animation_speed(c);
 	ft_draw_red_arrow(c);
 	ft_draw_minimap(c);
-	if (way_length.forward <= DOOR_OPEN_MSG)
-		ft_win_msg_background(c);
 	mlx_put_image_to_window(c->mlx, c->win, c->img, 0, 0);
 }
