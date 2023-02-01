@@ -62,10 +62,10 @@ int	main(int ac, char **av)
 	t_cub	*c;
 
 	if (ac != 2)
-		ft_error("invalid num of argumnets\n", 1);
+		ft_error(NULL, "invalid num of argumnets\n", 1);
 	c = (t_cub *)malloc(sizeof(t_cub));
 	if (!c)
-		ft_error("can't creat a t_cub struct\n", 1);
+		ft_error(c, "can't creat a t_cub struct\n", 1);
 	ft_initiator(c, av);
 	mlx_do_key_autorepeaton(c->mlx);
 	mlx_hook(c->win, 2, 1L << 0, key_hook, c);

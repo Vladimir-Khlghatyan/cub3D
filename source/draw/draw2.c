@@ -61,7 +61,7 @@ void	ft_draw_wall_by_map(t_cub *c, int map_flag)
 	i = -1;
 	while (++i < WIDTH_WINDOW)
 	{
-		sprt_tmp.step = step * i;
+		c->step = step * i;
 		ft_ray_cast(c, step * i, map_flag);
 		ft_draw_wall_line(c, i);
 		ft_draw_sprites(c, i);

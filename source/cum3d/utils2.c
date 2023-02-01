@@ -20,7 +20,7 @@ double	ft_max(double x, double y)
 	return (y);
 }
 
-char	**ft_copy_map(char **map)
+char	**ft_copy_map(t_cub *c, char **map)
 {
 	int		len;
 	int		i;
@@ -31,7 +31,7 @@ char	**ft_copy_map(char **map)
 	len = ft_arrlen(map);
 	new_map = (char **)malloc(sizeof(char *) * (len + 1));
 	if (!new_map)
-		ft_error("something went wrong with malloc, try again!\n", 1);
+		ft_error(c, "something went wrong with malloc, try again!\n", 1);
 	i = -1;
 	while (map[++i])
 		new_map[i] = ft_strdup(map[i]);

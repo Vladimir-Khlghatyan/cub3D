@@ -31,54 +31,48 @@ int	ft_is_1st_grater_than_2nd(double angle1, double angle2)
 	return (0);
 }
 
-double	ft_i_vec_x(double radian)
+double	ft_i_unit_vec_transformation(double radian, char flag)
 {
 	while (radian > 2 * M_PI)
 		radian -= 2 * M_PI;
-	if (radian <= M_PI_2)
+	if (radian <= M_PI_2 && flag == 'x')
 		return (cos(M_PI_2 - radian));
-	else if (radian <= M_PI)
+	if (radian <= M_PI && flag == 'x')
 		return (cos(radian - M_PI_2));
-	else if (radian <= M_PI + M_PI_2)
+	if (radian <= M_PI + M_PI_2 && flag == 'x')
 		return (-sin(radian - M_PI));
-	return (-cos(radian - M_PI - M_PI_2));
-}
-
-double	ft_i_vec_y(double radian)
-{
-	while (radian > 2 * M_PI)
-		radian -= 2 * M_PI;
-	if (radian <= M_PI_2)
+	if (radian > M_PI + M_PI_2 && flag == 'x')
+		return (-cos(radian - M_PI - M_PI_2));
+	if (radian <= M_PI_2 && flag == 'y')
 		return (-sin(M_PI_2 - radian));
-	else if (radian <= M_PI)
+	if (radian <= M_PI && flag == 'y')
 		return (sin(radian - M_PI_2));
-	else if (radian <= M_PI + M_PI_2)
+	if (radian <= M_PI + M_PI_2 && flag == 'y')
 		return (cos(radian - M_PI));
-	return (-sin(radian - M_PI - M_PI_2));
+	if (radian > M_PI + M_PI_2 && flag == 'y')
+		return (-sin(radian - M_PI - M_PI_2));
+	return (-1);
 }
 
-double	ft_j_vec_x(double radian)
+double	ft_j_unit_vec_transformation(double radian, char flag)
 {
 	while (radian > 2 * M_PI)
 		radian -= 2 * M_PI;
-	if (radian <= M_PI_2)
+	if (radian <= M_PI_2 && flag == 'x')
 		return (cos(radian));
-	else if (radian <= M_PI)
+	if (radian <= M_PI && flag == 'x')
 		return (-sin(radian - M_PI_2));
-	else if (radian <= M_PI + M_PI_2)
+	if (radian <= M_PI + M_PI_2 && flag == 'x')
 		return (-cos(radian - M_PI));
-	return (sin(radian - M_PI - M_PI_2));
-}
-
-double	ft_j_vec_y(double radian)
-{
-	while (radian > 2 * M_PI)
-		radian -= 2 * M_PI;
-	if (radian <= M_PI_2)
+	if (radian > M_PI + M_PI_2 && flag == 'x')
+		return (sin(radian - M_PI - M_PI_2));
+	if (radian <= M_PI_2 && flag == 'y')
 		return (sin(radian));
-	else if (radian <= M_PI)
+	if (radian <= M_PI && flag == 'y')
 		return (cos(radian - M_PI_2));
-	else if (radian <= M_PI + M_PI_2)
+	if (radian <= M_PI + M_PI_2 && flag == 'y')
 		return (-sin(radian - M_PI));
-	return (-cos(radian - M_PI - M_PI_2));
+	if (radian > M_PI + M_PI_2 && flag == 'y')
+		return (-cos(radian - M_PI - M_PI_2));
+	return (-1);
 }

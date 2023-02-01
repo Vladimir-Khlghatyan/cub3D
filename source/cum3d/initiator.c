@@ -14,15 +14,24 @@
 
 static void	ft_initiator1(t_cub *c, char **argv)
 {
-	ft_map_name_check(argv[1]);
+	ft_map_name_check(c, argv[1]);
 	c->mlx = mlx_init();
 	if (!c->mlx)
-		ft_error("MLX was not initialized!\n", 1);
+	{
+		write(2, RED, ft_strlen(RED));
+		write(2, "MLX was not initialized!\n", 25);
+		write(2, "https://harm-smits.github.io/42docs/", 36);
+		write(2, "libs/minilibx/getting_started.html\n", 35);
+		write(2, RESET, ft_strlen(RESET));
+		ft_error(c, NULL, 1);
+	}
 	c->init_map = ft_get_map(argv[1], c);
-	c->map = ft_copy_map(c->init_map);
+	c->map = ft_copy_map(c, c->init_map);
 	c->w_win = WIDTH_WINDOW;
 	c->h_win = HEIGHT_WINDOW;
 	c->win = mlx_new_window(c->mlx, c->w_win, c->h_win, "Cub3D");
+	if (!c->win)
+		ft_error(c, "can't open new window! Try again!\n", 1);
 	c->img = mlx_new_image(c->mlx, c->w_win, c->h_win);
 	c->addr = mlx_get_data_addr(c->img, &c->bpp, &c->line_length, &c->endian);
 	ft_draw_floor_and_ceilling(c);
@@ -30,15 +39,15 @@ static void	ft_initiator1(t_cub *c, char **argv)
 	c->fov = FOV;
 	c->w_map = ft_strlen(c->map[0]);
 	c->h_map = ft_arrlen(c->map);
+}
+
+static void	ft_initiator2_util(t_cub *c, int x, int y, int flag)
+{
 	minimap.pl_x = -1;
 	minimap.pl_y = -1;
 	c->door_is_open = 0;
 	mouse.mouse_enable = 0;
 	c->sprt = NULL;
-}
-
-static void	ft_initiator2_util(t_cub *c, int x, int y, int flag)
-{
 	if (flag == 1)
 	{
 		c->dir_vec_x = x / 1.0;
@@ -85,7 +94,7 @@ static void	ft_initiator3(t_cub *c)
 
 	c->xpm = (t_xpm *)malloc(sizeof(t_xpm) * 21);
 	if (!c->xpm)
-		ft_error("something went wrong with malloc, try again!\n", 1);
+		ft_error(c, "something went wrong with malloc, try again!\n", 1);
 	c->xpm[0].ptr = c->xpm_no;
 	c->xpm[1].ptr = c->xpm_so;
 	c->xpm[2].ptr = c->xpm_we;

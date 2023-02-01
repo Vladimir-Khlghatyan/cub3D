@@ -1,5 +1,4 @@
 /* ************************************************************************** */
-/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
@@ -13,7 +12,7 @@
 
 #include "cub.h"
 
-void	ft_error(char *message, int exit_code)
+int	ft_error(t_cub *c, char *message, int exit_code)
 {
 	if (message)
 	{
@@ -22,23 +21,33 @@ void	ft_error(char *message, int exit_code)
 		write(2, message, ft_strlen(message));
 		write(2, RESET, ft_strlen(RESET));
 	}
+	if (c)
+	{
+		if (c->win)
+			mlx_destroy_window(c->mlx, c->win);
+		ft_arrfree(c->init_map);
+		ft_arrfree(c->map);
+		free(c->xpm);
+		ft_free_sprt_list(c);
+		free(c);
+	}
 	if (exit_code)
 		exit(exit_code);
+	return (exit_code);
 }
 
-char	*ft_strfree(char *str)
+void	ft_strfree(char *str)
 {
 	if (!str)
-		return (NULL);
+		return ;
 	free(str);
-	return (NULL);
+	str = NULL;
 }
 
-char	*ft_strfree2(char *str1, char *str2)
+void	ft_strfree2(char *str1, char *str2)
 {
 	ft_strfree(str1);
 	ft_strfree(str2);
-	return (NULL);
 }
 
 char	**ft_arrfree(char **arr)
@@ -49,7 +58,11 @@ char	**ft_arrfree(char **arr)
 		return (NULL);
 	i = -1;
 	while (arr[++i])
+	{
 		free(arr[i]);
+		arr[i] = NULL;
+	}
 	free(arr);
+	arr = NULL;
 	return (NULL);
 }

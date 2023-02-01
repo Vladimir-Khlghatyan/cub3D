@@ -18,6 +18,7 @@ int	ft_close(t_cub *c)
 	ft_arrfree(c->init_map);
 	ft_arrfree(c->map);
 	free(c->xpm);
+	ft_free_sprt_list(c);
 	free(c);
 	printf("%sGAME OVER.\n Hope you enjoyed it :)\n%s", GREEN, RESET);
 	exit(0);

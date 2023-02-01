@@ -40,28 +40,28 @@ static int	ft_allowed_chars(char *str)
 	return (1);
 }
 
-void	ft_check_comma_count(char *map_path, char *buff, int cnt)
+void	ft_check_comma_count(t_cub *c, char *map_path, char *b, int cnt)
 {
 	int		fd;
 	char	*tmp;
 
 	fd = open(map_path, O_RDONLY);
 	if (fd == -1)
-		ft_error("unable to open map!\n", 1);
+		ft_error(c, "unable to open map!\n", 1);
 	while (1)
 	{
-		ft_strfree(buff);
+		ft_strfree(b);
 		if (cnt == 2)
 			break ;
-		buff = get_next_line(fd);
-		if (ft_empty_or_only_spaces_str(buff) || \
-			ft_begins_with_valid_xpm_name(buff))
+		b = get_next_line(fd);
+		if (ft_empty_or_only_spaces_str(b) || \
+			ft_begins_with_valid_xpm_name(b))
 			continue ;
-		tmp = ft_color_or_xpm_path(buff, 1);
+		tmp = ft_color_or_xpm_path(b, 1);
 		if (ft_comma_count(tmp) != 2)
 		{
-			ft_strfree2(buff, tmp);
-			ft_error("invalid count of comma in map!\n", 1);
+			ft_strfree2(b, tmp);
+			ft_error(c, "invalid count of comma in map (in clr code)!\n", 1);
 		}
 		free(tmp);
 		cnt++;
@@ -69,28 +69,28 @@ void	ft_check_comma_count(char *map_path, char *buff, int cnt)
 	close(fd);
 }
 
-void	ft_check_allowed_chars(char *map_path, char *buff, int cnt)
+void	ft_check_allowed_chars(t_cub *c, char *map_path, char *b, int cnt)
 {
 	int		fd;
 	char	*tmp;
 
 	fd = open(map_path, O_RDONLY);
 	if (fd == -1)
-		ft_error("unable to open map!\n", 1);
+		ft_error(c, "unable to open map!\n", 1);
 	while (1)
 	{
-		ft_strfree(buff);
+		ft_strfree(b);
 		if (cnt == 2)
 			break ;
-		buff = get_next_line(fd);
-		if (ft_empty_or_only_spaces_str(buff) || \
-			ft_begins_with_valid_xpm_name(buff))
+		b = get_next_line(fd);
+		if (ft_empty_or_only_spaces_str(b) || \
+			ft_begins_with_valid_xpm_name(b))
 			continue ;
-		tmp = ft_color_or_xpm_path(buff, 1);
+		tmp = ft_color_or_xpm_path(b, 1);
 		if (ft_allowed_chars(tmp) == 0)
 		{
-			ft_strfree2(buff, tmp);
-			ft_error("invalid color code in map!\n", 1);
+			ft_strfree2(b, tmp);
+			ft_error(c, "invalid color code in map!\n", 1);
 		}
 		free(tmp);
 		cnt++;

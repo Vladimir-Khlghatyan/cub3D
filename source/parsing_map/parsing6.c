@@ -54,7 +54,7 @@ static char	**ft_remove_first_str_from_arr(char **arr)
 	return (new_arr);
 }
 
-static char	**ft_read_map(char *map_path, char *buff)
+static char	**ft_read_map(t_cub *c, char *map_path, char *buff)
 {
 	char	**map;
 	int		cnt;
@@ -64,7 +64,7 @@ static char	**ft_read_map(char *map_path, char *buff)
 	cnt = 0;
 	fd = open(map_path, O_RDONLY);
 	if (fd == -1)
-		ft_error("unable to open map!\n", 1);
+		ft_error(c, "unable to open map!\n", 1);
 	while (1)
 	{
 		ft_strfree(buff);
@@ -83,7 +83,7 @@ static char	**ft_read_map(char *map_path, char *buff)
 	return (ft_remove_first_str_from_arr(map));
 }
 
-static char	**ft_empty_strs_in_arr(char **arr)
+static char	**ft_empty_strs_in_arr(t_cub *c, char **arr)
 {
 	int	i;
 
@@ -99,7 +99,7 @@ static char	**ft_empty_strs_in_arr(char **arr)
 			if (ft_empty_or_only_spaces_str(arr[i]) == 1)
 			{
 				ft_arrfree(arr);
-				ft_error("empty line in map!\n", 1);
+				ft_error(c, "empty line in map!\n", 1);
 			}
 		}
 	}
@@ -111,25 +111,25 @@ char	**ft_get_map(char *map_path, t_cub *c)
 	char	**map;
 	int		i;
 
-	ft_valid_xpm_names(map_path, NULL, 0, 0);
-	ft_valid_color_names(map_path, NULL, 0, 0);
+	ft_valid_xpm_names(c, map_path, NULL, 0);
+	ft_valid_color_names(c, map_path, NULL, 0);
 	ft_xpm_path_check(map_path, c);
 	ft_get_color_values(map_path, c);
-	map = ft_read_map(map_path, NULL);
+	map = ft_read_map(c, map_path, NULL);
 	if (!map)
-		ft_error("unable to get map!\n", 1);
+		ft_error(c, "unable to get map!\n", 1);
 	i = -1;
 	while (map[++i])
 	{	
 		if (!ft_strset(map[i], POSIBLE_CHARS))
 		{
 			ft_arrfree(map);
-			ft_error("invalid character in map!\n", 1);
+			ft_error(c, "invalid character in map!\n", 1);
 		}
 	}
-	map = ft_empty_strs_in_arr(map);
-	ft_chek_nsew_char_cnt(map);
+	map = ft_empty_strs_in_arr(c, map);
+	ft_chek_nsew_char_cnt(c, map);
 	ft_align_arr(map);
-	ft_check_inside_chars(map);
+	ft_check_inside_chars(c, map);
 	return (map);
 }

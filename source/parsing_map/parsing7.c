@@ -62,12 +62,12 @@ static void	ft_print_line(char c, int len)
 	write(1, "\n", 1);
 }
 
-static void	ft_invalid_neighbors(char **m, int y, int x)
+static void	ft_invalid_neighbors(t_cub *c, char **m, int y, int x)
 {
 	int	i;
 	int	j;
 
-	ft_error("not surrounded char in the map!\n", 0);
+	ft_error(c, "not surrounded char in the map!\n", 0);
 	ft_print_line('.', x + 3);
 	i = -1;
 	while (m[++i])
@@ -89,7 +89,7 @@ static void	ft_invalid_neighbors(char **m, int y, int x)
 	exit(1);
 }
 
-void	ft_check_inside_chars(char **map)
+void	ft_check_inside_chars(t_cub *c, char **map)
 {
 	int	i;
 	int	j;
@@ -110,7 +110,7 @@ void	ft_check_inside_chars(char **map)
 				(i == 0 || j == 0 || i == (mh - 1) || j == (mw - 1) || \
 				map[i - 1][j] == ' ' || map[i + 1][j] == ' ' || \
 				map[i][j - 1] == ' ' || map[i][j + 1] == ' '))
-				ft_invalid_neighbors(map, mh - 1, mw - 1);
+				ft_invalid_neighbors(c, map, mh - 1, mw - 1);
 		}
 	}
 }

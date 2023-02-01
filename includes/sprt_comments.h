@@ -17,8 +17,6 @@
 // 	int				map_i;
 // 	int				map_j;
 // 	double			rds; // the radius of the inscribed circle
-// 	double			ccx0; // (circle center X) - (pl_board_x)
-// 	double			ccy0; // (circle center Y) - (pl_board_y)
 // 	double			rr; // ray radian
 // 	double			cr; // central radian
 // 	double			ix; // transformed X of unit vector "i"

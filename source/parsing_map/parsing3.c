@@ -27,28 +27,28 @@ char	*ft_color_or_xpm_path(char *str, int flag)
 	return (ft_substr(str, i, ft_strlen(str + i)));
 }
 
-static char	**ft_get_xpm_paths_arr(char *map_path, char *buff, int cnt)
+static char	**ft_get_xpm_paths_arr(t_cub *c, char *map_path, char *b, int cnt)
 {
-	int			fd;
-	char		**xpm_paths;
+	int		fd;
+	char	**xpm_paths;
 
 	fd = open(map_path, O_RDONLY);
 	if (fd == -1)
-		ft_error("unable to open map!\n", 1);
+		ft_error(c, "unable to open map!\n", 1);
 	xpm_paths = (char **)malloc(sizeof(char *) * (4 + 1));
 	if (!xpm_paths)
 		return (NULL);
 	xpm_paths[4] = NULL;
 	while (1)
 	{
-		ft_strfree(buff);
+		ft_strfree(b);
 		if (cnt == 4)
 			break ;
-		buff = get_next_line(fd);
-		if (ft_empty_or_only_spaces_str(buff))
+		b = get_next_line(fd);
+		if (ft_empty_or_only_spaces_str(b))
 			continue ;
-		xpm_paths[ft_begins_with_valid_xpm_name(buff) - 1] = \
-								ft_color_or_xpm_path(buff, 2);
+		xpm_paths[ft_begins_with_valid_xpm_name(b) - 1] = \
+								ft_color_or_xpm_path(b, 2);
 		cnt++;
 	}
 	close(fd);
@@ -59,9 +59,9 @@ void	ft_xpm_path_check(char *map_path, t_cub *c)
 {
 	char	**xpm_paths;
 
-	xpm_paths = ft_get_xpm_paths_arr(map_path, NULL, 0);
+	xpm_paths = ft_get_xpm_paths_arr(c, map_path, NULL, 0);
 	if (!xpm_paths)
-		ft_error("unable to check xpm pats!\n", 1);
+		ft_error(c, "unable to check xpm pats!\n", 1);
 	c->xpm_no = mlx_xpm_file_to_image(c->mlx, xpm_paths[0], &c->wxpm[0], \
 																&c->hxpm[0]);
 	c->xpm_so = mlx_xpm_file_to_image(c->mlx, xpm_paths[1], &c->wxpm[1], \
@@ -72,5 +72,5 @@ void	ft_xpm_path_check(char *map_path, t_cub *c)
 																&c->hxpm[3]);
 	ft_arrfree(xpm_paths);
 	if (!c->xpm_no || !c->xpm_so || !c->xpm_we || !c->xpm_ea)
-		ft_error("invalid xmp paths in map!\n", 1);
+		ft_error(c, "invalid xmp paths in map!\n", 1);
 }

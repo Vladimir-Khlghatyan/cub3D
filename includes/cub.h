@@ -22,6 +22,7 @@
 # include <limits.h>
 # include <stdint.h>
 # include <math.h>
+# include <stdbool.h>
 # include "../mlx_linux/mlx.h"
 # include "libft.h"
 # include "keys.h"
@@ -90,8 +91,6 @@ typedef struct s_sprt
 	int				map_i;
 	int				map_j;
 	double			rds;
-	double			ccx0;
-	double			ccy0;
 	double			rr;
 	double			cr;
 	double			ix;
@@ -105,11 +104,6 @@ typedef struct s_sprt
 	double			xpm_x_ratio;
 	char			sprt_char;
 }	t_sprt;
-
-struct s_sprt_tmp
-{
-	double	step;
-}	sprt_tmp;
 
 typedef struct s_xpm
 {
@@ -169,6 +163,7 @@ typedef struct s_cub
 	double		ray_projection;
 	t_sprt		*sprt;
 	t_sprt		*sprt_tmp;
+	double		step;
 	int			s_num;
 	int			s_speed;
 }			t_cub;
@@ -228,12 +223,12 @@ int			ft_cub3d(t_cub *c);
 char		*ft_add_char_to_buf(char *buf, char c);
 char		*get_next_line(int fd);
 void		ft_initiator(t_cub *c, char **argv);
-void		ft_error(char *message, int exit_code);
-char		*ft_strfree(char *str);
-char		*ft_strfree2(char *str1, char *str2);
+int			ft_error(t_cub *c, char *message, int exit_code);
+void		ft_strfree(char *str);
+void		ft_strfree2(char *str1, char *str2);
 char		**ft_arrfree(char **arr);
 double		ft_max(double x, double y);
-char		**ft_copy_map(char **map);
+char		**ft_copy_map(t_cub *c, char **map);
 void		ft_reset_map(t_cub *c);
 
 //===========================================================================
@@ -300,22 +295,22 @@ int			mouse_click(int button);
 // parsing
 //===========================================================================
 
-void		ft_map_name_check(char *map_path);
+void		ft_map_name_check(t_cub *c, char *map_path);
 int			ft_empty_or_only_spaces_str(char *str);
 int			ft_begins_with_valid_xpm_name(char *str);
-int			ft_valid_xpm_names(char	*map_path, char *buff, int cnt, int rt);
+int			ft_valid_xpm_names(t_cub *c, char *map_path, char *buff, int cnt);
 int			ft_begins_with_valid_color_name(char *str);
-int			ft_valid_color_names(char *map_path, char *buff, int cnt, int rt);
+int			ft_valid_color_names(t_cub *c, char *map_path, char *b, int cnt);
 char		*ft_color_or_xpm_path(char *str, int flag);
 void		ft_xpm_path_check(char *map_path, t_cub *c);
-void		ft_check_comma_count(char *map_path, char *buff, int cnt);
-void		ft_check_allowed_chars(char *map_path, char *buff, int cnt);
+void		ft_check_comma_count(t_cub *c, char *map_path, char *b, int cnt);
+void		ft_check_allowed_chars(t_cub *c, char *map_path, char *b, int cnt);
 int			ft_check_long_long_limits(char *str);
 void		ft_get_color_values(char *map_path, t_cub *c);
-void		ft_chek_nsew_char_cnt(char **map);
+void		ft_chek_nsew_char_cnt(t_cub *c, char **map);
 char		**ft_get_map(char *map_path, t_cub *c);
 void		ft_align_arr(char **arr);
-void		ft_check_inside_chars(char **map);
+void		ft_check_inside_chars(t_cub *c, char **map);
 
 //===========================================================================
 // sprite
@@ -325,10 +320,8 @@ void		ft_open_sprites(t_cub *c);
 void		ft_create_sprt_list(t_cub *c, int i, int j);
 void		ft_free_sprt_list(t_cub *c);
 int			ft_is_1st_grater_than_2nd(double angle1, double angle2);
-double		ft_i_vec_x(double radian);
-double		ft_i_vec_y(double radian);
-double		ft_j_vec_x(double radian);
-double		ft_j_vec_y(double radian);
+double		ft_i_unit_vec_transformation(double radian, char flag);
+double		ft_j_unit_vec_transformation(double radian, char flag);
 void		ft_draw_sprites(t_cub *c, int x);
 void		ft_animation_speed(t_cub *c);
 

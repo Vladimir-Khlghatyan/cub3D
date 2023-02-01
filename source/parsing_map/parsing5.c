@@ -20,7 +20,7 @@ static void	ft_set_null(char ***flr, char ***cell)
 		(*cell) = NULL;
 }
 
-static char	**ft_get_color_subint_arr(char *map_path, char *buff, int cnt)
+static char	**ft_get_clr_subint_arr(t_cub *c, char *map_path, char *b, int cnt)
 {
 	int		fd;
 	char	**flr;
@@ -29,20 +29,20 @@ static char	**ft_get_color_subint_arr(char *map_path, char *buff, int cnt)
 	ft_set_null(&flr, &cell);
 	fd = open(map_path, O_RDONLY);
 	if (fd == -1)
-		ft_error("unable to open map!\n", 1);
+		ft_error(c, "unable to open map!\n", 1);
 	while (1)
 	{
-		ft_strfree(buff);
+		ft_strfree(b);
 		if (cnt == 2)
 			break ;
-		buff = get_next_line(fd);
-		if (ft_empty_or_only_spaces_str(buff) || \
-			ft_begins_with_valid_xpm_name(buff))
+		b = get_next_line(fd);
+		if (ft_empty_or_only_spaces_str(b) || \
+			ft_begins_with_valid_xpm_name(b))
 			continue ;
-		if (ft_begins_with_valid_color_name(buff) == 1)
-			flr = ft_split_free(ft_color_or_xpm_path(buff, 1), ',', NULL, -1);
+		if (ft_begins_with_valid_color_name(b) == 1)
+			flr = ft_split_free(ft_color_or_xpm_path(b, 1), ',', NULL, -1);
 		else
-			cell = ft_split_free(ft_color_or_xpm_path(buff, 1), ',', NULL, -1);
+			cell = ft_split_free(ft_color_or_xpm_path(b, 1), ',', NULL, -1);
 		cnt++;
 	}
 	close(fd);
@@ -65,11 +65,11 @@ void	ft_get_color_values(char *map_path, t_cub *c)
 	char	**colors;
 	int		i;
 
-	ft_check_comma_count(map_path, NULL, 0);
-	ft_check_allowed_chars(map_path, NULL, 0);
-	colors = ft_get_color_subint_arr(map_path, NULL, 0);
+	ft_check_comma_count(c, map_path, NULL, 0);
+	ft_check_allowed_chars(c, map_path, NULL, 0);
+	colors = ft_get_clr_subint_arr(c, map_path, NULL, 0);
 	if (!colors)
-		ft_error("can't get color codes from map!\n", 1);
+		ft_error(c, "can't get color codes from map (try again)!\n", 1);
 	i = -1;
 	while (colors[++i])
 	{
@@ -77,13 +77,13 @@ void	ft_get_color_values(char *map_path, t_cub *c)
 			ft_atoll(colors[i]) < 0 || ft_atoll(colors[i]) > 255)
 		{
 			ft_arrfree(colors);
-			ft_error("color code out of range [0:255] in map!\n", 1);
+			ft_error(c, "color code out of range [0:255] in map!\n", 1);
 		}
 	}
 	ft_set_colors(c, colors);
 }
 
-void	ft_chek_nsew_char_cnt(char **map)
+void	ft_chek_nsew_char_cnt(t_cub *c, char **map)
 {
 	int	i;
 	int	j;
@@ -103,6 +103,6 @@ void	ft_chek_nsew_char_cnt(char **map)
 	if (cnt != 1)
 	{
 		ft_arrfree(map);
-		ft_error("count of 'NSEW' chars in map must be 1!\n", 1);
+		ft_error(c, "count of 'NSEW' chars in map must be 1!\n", 1);
 	}
 }

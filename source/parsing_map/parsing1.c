@@ -12,14 +12,14 @@
 
 #include "cub.h"
 
-void	ft_map_name_check(char *map_path)
+void	ft_map_name_check(t_cub *c, char *map_path)
 {
 	int	l;
 
 	l = ft_strlen(map_path);
 	if (l < 4 || map_path[l - 4] != '.' || map_path[l - 3] != 'c' \
 		|| map_path[l - 2] != 'u' || map_path[l - 1] != 'b')
-		ft_error("non valid name of map!\n", 1);
+		ft_error(c, "non valid name of map!\n", 1);
 }
 
 int	ft_empty_or_only_spaces_str(char *str)
@@ -55,13 +55,15 @@ int	ft_begins_with_valid_xpm_name(char *str)
 	return (0);
 }
 
-int	ft_valid_xpm_names(char	*map_path, char *buff, int cnt, int rt)
+int	ft_valid_xpm_names(t_cub *c, char *map_path, char *buff, int cnt)
 {
-	int			fd;
+	int	rt;
+	int	fd;
 
+	rt = 0;
 	fd = open(map_path, O_RDONLY);
 	if (fd == -1)
-		ft_error("unable to open map!\n", 1);
+		ft_error(c, "unable to open map!\n", 1);
 	while (1)
 	{
 		ft_strfree(buff);
@@ -79,6 +81,5 @@ int	ft_valid_xpm_names(char	*map_path, char *buff, int cnt, int rt)
 	close(fd);
 	if (cnt == 4 && rt == 1 + 2 + 3 + 4)
 		return (1);
-	ft_error("invalid xmp names in map!\n", 1);
-	return (0);
+	return (ft_error(c, "invalid xmp names in map!\n", 1));
 }
