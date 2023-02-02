@@ -12,6 +12,25 @@
 
 #include "cub.h"
 
+t_cub	*ft_cub_malloc(void)
+{
+	t_cub	*c;
+
+	c = (t_cub *)malloc(sizeof(t_cub));
+	if (!c)
+		ft_error(c, "can't creat a t_cub struct\n", 1);
+	c->mlx = NULL;
+	c->win = NULL;
+	c->img = NULL;
+	c->addr = NULL;
+	c->init_map = NULL;
+	c->map = NULL;
+	c->xpm = NULL;
+	c->sprt = NULL;
+	c->sprt_tmp = NULL;
+	return (c);
+}
+
 void	ft_win_msg(t_cub *c)
 {
 	int	pos_x;
@@ -54,9 +73,7 @@ int	main(int ac, char **av)
 
 	if (ac != 2)
 		ft_error(NULL, "invalid num of argumnets\n", 1);
-	c = (t_cub *)malloc(sizeof(t_cub));
-	if (!c)
-		ft_error(c, "can't creat a t_cub struct\n", 1);
+	c = ft_cub_malloc();
 	ft_initiator(c, av);
 	mlx_do_key_autorepeaton(c->mlx);
 	mlx_hook(c->win, 2, 1L << 0, key_hook, c);

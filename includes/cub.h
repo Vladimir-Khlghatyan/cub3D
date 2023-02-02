@@ -57,7 +57,7 @@
 # define HEIGHT_WINDOW		790 //1000
 # define TURN_AROUND_STEP	60
 # define DIST_FROM_WALL		500
-# define WALL_HEIGHT_RATIO	1
+# define WALL_HEIGHT_RATIO	0.9
 # define MOUSE_RATIO		1.0
 # define MOUSE_SIDE_RATIO	1.5
 # define MINIMAP_RATIO		5
@@ -65,6 +65,7 @@
 # define DOOR_OPEN_DIST		700
 # define DOOR_OPEN_MSG		500
 # define SPRT_ANIM_SPEED	3
+# define XPM_COUNT			21
 # define ENABLE_MY_PIC		1
 # define SPRT_PIC1			"./xpm/sprite/s1.xpm"
 # define SPRT_PIC2			"./xpm/sprite/s2.xpm"
@@ -217,11 +218,13 @@ struct	s_minimap
 // cub3D
 //===========================================================================
 
+t_cub		*ft_cub_malloc(void);
 void		ft_win_msg(t_cub *c);
 int			ft_cub3d(t_cub *c);
 char		*ft_add_char_to_buf(char *buf, char c);
 char		*get_next_line(int fd);
 void		ft_initiator(t_cub *c, char **argv);
+void		ft_free_all(t_cub *c);
 int			ft_error(t_cub *c, char *message, int exit_code);
 void		ft_strfree(char *str);
 void		ft_strfree2(char *str1, char *str2);
@@ -308,7 +311,7 @@ int			ft_check_long_long_limits(char *str);
 void		ft_get_color_values(char *map_path, t_cub *c);
 void		ft_chek_nsew_char_cnt(t_cub *c, char **map);
 char		**ft_get_map(char *map_path, t_cub *c);
-void		ft_align_arr(char **arr);
+void		ft_align_arr(t_cub *c, char **arr);
 void		ft_check_inside_chars(t_cub *c, char **map);
 
 //===========================================================================

@@ -35,16 +35,16 @@ static char	**ft_add_str_to_arr(char **arr, char *str)
 	return (new_arr);
 }
 
-static char	**ft_remove_first_str_from_arr(char **arr)
+static char	**ft_remove_first_str_from_arr(t_cub *c, char **arr)
 {
 	int		i;
 	char	**new_arr;
 
 	if (!arr || ft_arrlen(arr) == 1)
-		return (ft_arrfree(arr));
+		ft_error(c, "not enough resources. Try again!\n", 1);
 	new_arr = (char **)malloc(sizeof(char *) * ft_arrlen(arr));
 	if (!new_arr)
-		return (ft_arrfree(arr));
+		ft_error(c, "not enough resources. Try again!\n", 1);
 	i = 0;
 	while (arr[++i])
 		new_arr[i - 1] = arr[i];
@@ -80,7 +80,7 @@ static char	**ft_read_map(t_cub *c, char *map_path, char *buff)
 			map = ft_add_str_to_arr(map, buff);
 	}
 	close(fd);
-	return (ft_remove_first_str_from_arr(map));
+	return (ft_remove_first_str_from_arr(c, map));
 }
 
 static char	**ft_empty_strs_in_arr(t_cub *c, char **arr)
@@ -88,9 +88,9 @@ static char	**ft_empty_strs_in_arr(t_cub *c, char **arr)
 	int	i;
 
 	if (!arr)
-		return (NULL);
+		ft_error(c, "not enough resources. Try again!\n", 1);
 	while (ft_empty_or_only_spaces_str(arr[0]) == 1)
-		arr = ft_remove_first_str_from_arr(arr);
+		arr = ft_remove_first_str_from_arr(c, arr);
 	if (arr)
 	{
 		i = -1;
@@ -129,7 +129,7 @@ char	**ft_get_map(char *map_path, t_cub *c)
 	}
 	map = ft_empty_strs_in_arr(c, map);
 	ft_chek_nsew_char_cnt(c, map);
-	ft_align_arr(map);
+	ft_align_arr(c, map);
 	ft_check_inside_chars(c, map);
 	return (map);
 }

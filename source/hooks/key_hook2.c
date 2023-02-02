@@ -14,12 +14,7 @@
 
 int	ft_close(t_cub *c)
 {
-	mlx_destroy_window(c->mlx, c->win);
-	ft_arrfree(c->init_map);
-	ft_arrfree(c->map);
-	free(c->xpm);
-	ft_free_sprt_list(c);
-	free(c);
+	ft_free_all(c);
 	printf("%sGAME OVER.\n Hope you enjoyed it :)\n%s", GREEN, RESET);
 	exit(0);
 }

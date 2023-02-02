@@ -27,13 +27,13 @@ static size_t	ft_max_strlen_in_arr(char **arr)
 	return (max);
 }
 
-void	ft_align_arr(char **arr)
+void	ft_align_arr(t_cub *c, char **arr)
 {
 	size_t	max;
 	int		i;
 
 	if (!arr)
-		return ;
+		ft_error(c, "not enough resources. Try again!\n", 1);
 	max = ft_max_strlen_in_arr(arr);
 	i = -1;
 	while (arr[++i])
@@ -99,7 +99,7 @@ void	ft_check_inside_chars(t_cub *c, char **map)
 	mh = ft_arrlen(map);
 	mw = ft_strlen(map[0]);
 	if (!map)
-		return ;
+		ft_error(c, "not enough resources. Try again!\n", 1);
 	i = -1;
 	while (map[++i])
 	{

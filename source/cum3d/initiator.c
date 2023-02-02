@@ -47,7 +47,6 @@ static void	ft_initiator2_util(t_cub *c, int x, int y, int flag)
 	minimap.pl_y = -1;
 	c->door_is_open = 0;
 	mouse.mouse_enable = 0;
-	c->sprt = NULL;
 	if (flag == 1)
 	{
 		c->dir_vec_x = x / 1.0;
@@ -92,7 +91,7 @@ static void	ft_initiator3(t_cub *c)
 {
 	int	i;
 
-	c->xpm = (t_xpm *)malloc(sizeof(t_xpm) * 21);
+	c->xpm = (t_xpm *)malloc(sizeof(t_xpm) * XPM_COUNT);
 	if (!c->xpm)
 		ft_error(c, "something went wrong with malloc, try again!\n", 1);
 	c->xpm[0].ptr = c->xpm_no;

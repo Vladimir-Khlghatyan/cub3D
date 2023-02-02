@@ -90,7 +90,7 @@ void	ft_chek_nsew_char_cnt(t_cub *c, char **map)
 	int	cnt;
 
 	if (!map)
-		return ;
+		ft_error(c, "not enough resources. Try again!\n", 1);
 	cnt = 0;
 	i = -1;
 	while (map[++i])
