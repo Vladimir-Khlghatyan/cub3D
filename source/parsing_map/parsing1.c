@@ -64,7 +64,7 @@ int	ft_valid_xpm_names(t_cub *c, char *map_path, char *buff, int cnt)
 	fd = open(map_path, O_RDONLY);
 	if (fd == -1)
 		ft_error(c, "unable to open map!\n", 1);
-	while (1)
+	while (true)
 	{
 		ft_strfree(buff);
 		buff = get_next_line(fd);

@@ -52,21 +52,35 @@ static void	ft_draw_wall_line(t_cub *c, int x)
 	}
 }
 
-void	ft_draw_wall_by_map(t_cub *c, int map_flag)
+static void	ft_set(t_cub *c, int *i, int *end)
 {
-	double	step;
-	int		i;
+	(*i) = c->start;
+	(*end) = c->end;
+}
 
-	step = c->fov / (WIDTH_WINDOW - 1);
-	i = -1;
-	while (++i < WIDTH_WINDOW)
+void	ft_draw_wall_by_map(t_cub *c, int map_flag, int i, int end)
+{
+	ft_set(c, &i, &end);
+	while (++i < end)
 	{
-		c->step = step * i;
-		ft_ray_cast(c, step * i, map_flag);
-		ft_draw_wall_line(c, i);
-		ft_draw_sprites(c, i);
-		ft_free_sprt_list(c);
+		c->step = (c->fov / (WIDTH_WINDOW - 1)) * i;
+		ft_ray_cast(c, c->step, map_flag, i);
+		if (c->xpm)
+		{
+			ft_draw_floor_and_ceilling_line(c, i);
+			ft_draw_wall_line(c, i);
+			ft_draw_sprite_line(c, i);
+			ft_free_sprt_list(c);
+		}
+		else if (c->draw_line_flag)
+		{
+			ft_draw_wall_line(c, i);
+			ft_draw_floor_and_ceilling_line(c, i);
+		}
 	}
+	if (c->start == -1 && c->end == WIDTH_WINDOW)
+		c->start = c->end;
+	c->draw_line_flag = 0;
 	ft_animation_speed(c);
 	ft_draw_red_arrow(c);
 	ft_draw_minimap(c);

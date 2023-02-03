@@ -68,7 +68,7 @@ static void	ft_draw_sprt_line(t_cub *c, int x)
 	}
 }
 
-void	ft_draw_sprites(t_cub *c, int x)
+void	ft_draw_sprite_line(t_cub *c, int x)
 {
 	t_sprt	*tmp;
 

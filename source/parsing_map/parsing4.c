@@ -48,7 +48,7 @@ void	ft_check_comma_count(t_cub *c, char *map_path, char *b, int cnt)
 	fd = open(map_path, O_RDONLY);
 	if (fd == -1)
 		ft_error(c, "unable to open map!\n", 1);
-	while (1)
+	while (true)
 	{
 		ft_strfree(b);
 		if (cnt == 2)
@@ -77,7 +77,7 @@ void	ft_check_allowed_chars(t_cub *c, char *map_path, char *b, int cnt)
 	fd = open(map_path, O_RDONLY);
 	if (fd == -1)
 		ft_error(c, "unable to open map!\n", 1);
-	while (1)
+	while (true)
 	{
 		ft_strfree(b);
 		if (cnt == 2)

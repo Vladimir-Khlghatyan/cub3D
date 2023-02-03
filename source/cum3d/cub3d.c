@@ -57,8 +57,7 @@ void	ft_win_msg(t_cub *c)
 
 int	ft_cub3d(t_cub *c)
 {
-	ft_draw_floor_and_ceilling(c);
-	ft_draw_wall_by_map(c, 2);
+	ft_draw_wall_by_map(c, 2, 0, 0);
 	ft_win_msg(c);
 	ft_set_ways_length(c);
 	ft_mouse_move(c);

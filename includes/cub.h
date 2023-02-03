@@ -162,11 +162,15 @@ typedef struct s_cub
 	double		cross_coor_y;
 	double		ray_length;
 	double		ray_projection;
+	int			draw_line_flag;
 	t_sprt		*sprt;
 	t_sprt		*sprt_tmp;
 	double		step;
 	int			s_num;
 	int			s_speed;
+	int			start;
+	int			end;
+	int			i;
 }			t_cub;
 
 struct	s_vertical
@@ -254,7 +258,7 @@ double		ft_d_vertical_x(t_cub *c, double step);
 double		ft_d_vertical_y(t_cub *c, double step);
 void		ft_ray_length(t_cub *c, double step, int flag);
 void		ft_ray_projection(t_cub *c, double step, int flag);
-double		ft_ray_cast(t_cub *c, double step, int flag);
+double		ft_ray_cast(t_cub *c, double step, int flag, int i);
 int			ft_iswall(t_cub *c, double x, double y, int flag);
 int			ft_wall_or_door_set(t_cub *c, char chr);
 char		**ft_select_map(t_cub *c, int flag);
@@ -267,9 +271,10 @@ int			ft_iswall_util(t_cub *c, double x, double y, int flag);
 void		my_mlx_pixel_put(t_cub *c, int x, int y, int color);
 int			ft_get_xmp_pixel_color(t_xpm xpm, int x, int y);
 void		ft_draw_floor_and_ceilling(t_cub *c);
+void		ft_draw_floor_and_ceilling_line(t_cub *c, int x);
 void		ft_draw_red_arrow(t_cub *c);
 int			ft_line_point(t_cub *c, int line_height, char *place);
-void		ft_draw_wall_by_map(t_cub *c, int map_flag);
+void		ft_draw_wall_by_map(t_cub *c, int map_flag, int i, int end);
 void		ft_set_ways_length(t_cub *c);
 void		ft_draw_minimap(t_cub *c);
 void		ft_draw_player(t_cub *c);
@@ -324,7 +329,7 @@ void		ft_free_sprt_list(t_cub *c);
 int			ft_is_1st_grater_than_2nd(double angle1, double angle2);
 double		ft_i_unit_vec_transformation(double radian, char flag);
 double		ft_j_unit_vec_transformation(double radian, char flag);
-void		ft_draw_sprites(t_cub *c, int x);
+void		ft_draw_sprite_line(t_cub *c, int x);
 void		ft_animation_speed(t_cub *c);
 
 #endif

@@ -22,8 +22,10 @@ void	ft_ray_projection(t_cub *c, double step, int flag)
 	c->ray_projection = c->ray_length * cos(angle);
 }
 
-double	ft_ray_cast(t_cub *c, double step, int flag)
+double	ft_ray_cast(t_cub *c, double step, int flag, int i)
 {
+	if (i >= 0)
+		c->i = i;
 	ft_cntr_rad(c);
 	ft_crossing_direction_with_map(c, step);
 	ft_side_dist_xy(c, step);

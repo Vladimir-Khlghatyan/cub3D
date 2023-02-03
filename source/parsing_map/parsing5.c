@@ -30,7 +30,7 @@ static char	**ft_get_clr_subint_arr(t_cub *c, char *map_path, char *b, int cnt)
 	fd = open(map_path, O_RDONLY);
 	if (fd == -1)
 		ft_error(c, "unable to open map!\n", 1);
-	while (1)
+	while (true)
 	{
 		ft_strfree(b);
 		if (cnt == 2)

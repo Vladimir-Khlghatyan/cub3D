@@ -88,6 +88,9 @@ void	ft_create_sprt_list(t_cub *c, int i, int j)
 		node = NULL;
 		return ;
 	}
+	if (c->start == -1)
+		c->start = c->i;
+	c->end = c->i + 1;
 	ft_add_sprt_node(&(c->sprt), node);
 }
 

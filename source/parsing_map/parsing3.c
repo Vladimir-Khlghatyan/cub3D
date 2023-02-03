@@ -39,7 +39,7 @@ static char	**ft_get_xpm_paths_arr(t_cub *c, char *map_path, char *b, int cnt)
 	if (!xpm_paths)
 		return (NULL);
 	xpm_paths[4] = NULL;
-	while (1)
+	while (true)
 	{
 		ft_strfree(b);
 		if (cnt == 4)

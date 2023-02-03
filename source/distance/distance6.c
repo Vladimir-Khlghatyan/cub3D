@@ -93,7 +93,7 @@ void	ft_ray_length(t_cub *c, double step, int flag)
 		if (ft_s_dist_x_part(c, step, flag) || \
 			ft_s_dist_y_part(c, step, flag))
 			return ;
-		while (1)
+		while (true)
 			if (ft_d_dist_x_part(c, step, flag) || \
 				ft_d_dist_y_part(c, step, flag))
 				break ;
@@ -103,7 +103,7 @@ void	ft_ray_length(t_cub *c, double step, int flag)
 		if (ft_s_dist_y_part(c, step, flag) || \
 			ft_s_dist_x_part(c, step, flag))
 			return ;
-		while (1)
+		while (true)
 			if (ft_d_dist_y_part(c, step, flag) || \
 				ft_d_dist_x_part(c, step, flag))
 				break ;

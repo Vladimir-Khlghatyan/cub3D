@@ -47,6 +47,20 @@ void	ft_draw_floor_and_ceilling(t_cub *c)
 	}
 }
 
+void	ft_draw_floor_and_ceilling_line(t_cub *c, int x)
+{
+	int	y;
+
+	y = -1;
+	while (++y < c->h_win)
+	{
+		if (y <= c->h_win / 2)
+			my_mlx_pixel_put(c, x, y, c->ceiling_clr);
+		else
+			my_mlx_pixel_put(c, x, y, c->floor_clr);
+	}
+}
+
 void	ft_draw_red_arrow(t_cub *c)
 {
 	int	x;

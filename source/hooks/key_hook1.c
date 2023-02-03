@@ -96,6 +96,9 @@ int	key_hook(int keycode, t_cub *c)
 		ft_go_left(c);
 	if (keycode == KEY_D)
 		ft_go_right(c);
+	c->draw_line_flag = 1;
+	c->start = -1;
+	c->end = WIDTH_WINDOW;
 	return (0);
 }
 

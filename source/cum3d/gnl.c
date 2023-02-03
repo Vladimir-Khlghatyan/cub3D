@@ -48,7 +48,7 @@ char	*get_next_line(int fd)
 	char	*buffer;
 
 	buffer = NULL;
-	while (1)
+	while (true)
 	{
 		rd = read(fd, &c, 1);
 		if (rd <= 0 || c == '\n')

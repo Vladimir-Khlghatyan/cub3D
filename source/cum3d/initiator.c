@@ -116,4 +116,7 @@ void	ft_initiator(t_cub *c, char **argv)
 	ft_open_sprites(c);
 	c->s_num = 4;
 	c->s_speed = 0;
+	c->draw_line_flag = 1;
+	c->start = -1;
+	c->end = WIDTH_WINDOW;
 }

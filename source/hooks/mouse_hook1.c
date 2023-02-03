@@ -21,6 +21,9 @@ int	mouse_hook(int x, int y, t_cub *c)
 		ft_turn_around(c, KEY_RIGHT, MOUSE_RATIO);
 	else if (x < mouse.old_x)
 		ft_turn_around(c, KEY_LEFT, MOUSE_RATIO);
+	c->draw_line_flag = 1;
+	c->start = -1;
+	c->end = WIDTH_WINDOW;
 	mouse.old_x = x;
 	return (0);
 }
@@ -30,9 +33,19 @@ void	ft_mouse_move(t_cub *c)
 	if (mouse.mouse_enable == 0)
 		return ;
 	if (mouse.old_x > WIDTH_WINDOW - 4)
+	{
 		ft_turn_around(c, KEY_RIGHT, MOUSE_SIDE_RATIO);
+		c->draw_line_flag = 1;
+		c->start = -1;
+		c->end = WIDTH_WINDOW;
+	}
 	if (mouse.old_x < 4)
+	{
 		ft_turn_around(c, KEY_LEFT, MOUSE_SIDE_RATIO);
+		c->draw_line_flag = 1;
+		c->start = -1;
+		c->end = WIDTH_WINDOW;
+	}	
 }
 
 int	mouse_click(int button)
