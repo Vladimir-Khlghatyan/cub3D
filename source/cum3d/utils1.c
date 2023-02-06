@@ -25,11 +25,11 @@ void	ft_free_all(t_cub *c)
 	free(c->mlx);
 	ft_arrfree(c->init_map);
 	ft_arrfree(c->map);
-	free(c->xpm);
 	i = -1;
 	if (c->xpm)
 		while (++i < XPM_COUNT)
 			free(c->xpm[i].addr);
+	free(c->xpm);
 	ft_free_sprt_list(c);
 	free(c);
 }
